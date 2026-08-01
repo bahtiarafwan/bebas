@@ -1,0 +1,1976 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco-History Lampung | Sejarah Lokal Berbasis Ecopedagogy & Deep Learning</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        lampung: {
+                            green: '#2E7D32',
+                            'green-light': '#4CAF50',
+                            'green-dark': '#1B5E20',
+                            brown: '#795548',
+                            'brown-light': '#A1887F',
+                            'brown-dark': '#4E342E',
+                            white: '#FAFAFA',
+                            blue: '#1565C0',
+                            'blue-light': '#42A5F5',
+                            gold: '#D4AF37',
+                            'gold-dark': '#B38F24',
+                            darkbg: '#0F1710',
+                            darkcard: '#18241A',
+                            darkborder: '#27382A'
+                        }
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                        nunito: ['Nunito', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAFAFA;
+            color: #212121;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dark body {
+            background-color: #0F1710;
+            color: #E0E0E0;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .dark .glass-card {
+            background: rgba(24, 36, 26, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* 3D Card Flip Animation */
+        .flip-card {
+            perspective: 1000px;
+            background-color: transparent;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+        }
+
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #E8F5E9;
+        }
+
+        .dark ::webkit-scrollbar-track {
+            background: #121E14;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #2E7D32;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1B5E20;
+        }
+
+        /* Custom Siger Pattern Overlay */
+        .siger-bg {
+            background-image: radial-gradient(#D4AF37 0.75px, transparent 0.75px), radial-gradient(#2E7D32 0.75px, #FAFAFA 0.75px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            opacity: 0.05;
+        }
+
+        .dark .siger-bg {
+            background-image: radial-gradient(#D4AF37 0.75px, transparent 0.75px), radial-gradient(#4CAF50 0.75px, #0F1710 0.75px);
+            opacity: 0.08;
+        }
+
+        /* Certificate Styling for Print */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printableCertificate, #printableCertificate * {
+                visibility: visible;
+            }
+            #printableCertificate {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scrollProgressBar" class="fixed top-0 left-0 h-1.5 bg-gradient-to-r from-lampung-green via-lampung-gold to-lampung-blue z-50 transition-all duration-150" style="width: 0%;"></div>
+
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="fixed inset-0 bg-lampung-green-dark text-white z-50 flex flex-col justify-center items-center transition-opacity duration-500">
+        <div class="relative w-24 h-24 mb-4">
+            <i class="fa-solid fa-tree text-lampung-gold text-5xl absolute inset-0 flex items-center justify-center animate-bounce"></i>
+            <div class="w-full h-full border-4 border-lampung-gold border-t-transparent rounded-full animate-spin"></div>
+        </div>
+        <h2 class="font-poppins font-bold text-2xl tracking-wide mb-1 text-center">Sejarah Lokal Lampung</h2>
+        <p class="font-nunito text-sm text-lampung-gold font-semibold">Berbasis Ecopedagogy & Deep Learning</p>
+        <span class="mt-4 text-xs text-gray-300 animate-pulse">Memuat Media Pembelajaran Interaktif...</span>
+    </div>
+
+    <!-- Navbar -->
+    <header class="sticky top-0 z-40 w-full transition-all duration-300 shadow-md bg-white/90 dark:bg-lampung-darkbg/90 backdrop-blur-md border-b border-gray-200 dark:border-lampung-darkborder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
+            <!-- Brand Logo -->
+            <a href="#beranda" class="flex items-center gap-3 group">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-lampung-green to-lampung-green-dark flex items-center justify-center text-lampung-gold shadow-md group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-crown text-2xl"></i>
+                </div>
+                <div>
+                    <span class="font-poppins font-extrabold text-lg sm:text-xl text-lampung-green dark:text-lampung-green-light tracking-tight flex items-center gap-1">
+                        EcoHist<span class="text-lampung-gold">Lampung</span>
+                    </span>
+                    <span class="block text-[10px] sm:text-xs font-semibold text-gray-500 dark:text-gray-400 font-nunito">
+                        Ecopedagogy & Deep Learning
+                    </span>
+                </div>
+            </a>
+
+            <!-- Navigation Links (Desktop) -->
+            <nav class="hidden lg:flex items-center space-x-1 xl:space-x-2 text-xs xl:text-sm font-semibold">
+                <a href="#beranda" class="px-3 py-2 rounded-lg text-gray-700 dark:text-gray-200 hover:text-lampung-green dark:hover:text-lampung-green-light hover:bg-gray-100 dark:hover:bg-lampung-darkcard transition">Beranda</a>
+                <a href="#tentang" class="px-3 py-2 rounded-lg text-gray-700 dark:text-gray-200 hover:text-lampung-green dark:hover:text-lampung-green-light hover:bg-gray-100 dark:hover:bg-lampung-darkcard transition">Tentang</a>
+                <a href="#materi" class="px-3 py-2 rounded-lg text-gray-700 dark:text-gray-200 hover:text-lampung-green dark:hover:text-lampung-green-light hover:bg-gray-100 dark:hover:bg-lampung-darkcard transition flex items-center gap-1">
+                    <span>Materi</span>
+                    <span class="px-1.5 py-0.5 text-[10px] bg-lampung-gold text-white rounded-full font-bold animate-pulse">Pusat</span>
+                </a>
+                <a href="#timeline" class="px-3 py-2 rounded-lg text-gray-700 dark:text-gray-200 hover:text-lampung-green dark:hover:text-lampung-green-light hover:bg-gray-100 dark:hover:bg-lampung-darkcard transition">Timeline</a>
+                <a href="#peta" class="px-3 py-2 rounded-lg text-gray-700 dark:text-gray-200 hover:text-lampung-green dark:hover:text-lampung-green-light hover:bg-gray-100 dark:hover:bg-lampung-darkcard transition">Peta Sejarah</a>
+                <a href="#video" class="px-3 py-2 rounded-lg text-gray-700 dark:text-gray-200 hover:text-lampung-green dark:hover:text-lampung-green-light hover:bg-gray-100 dark:hover:bg-lampung-darkcard transition">Video</a>
+                <a href="#aktivitas" class="px-3 py-2 rounded-lg text-gray-700 dark:text-gray-200 hover:text-lampung-green dark:hover:text-lampung-green-light hover:bg-gray-100 dark:hover:bg-lampung-darkcard transition">Aktivitas</a>
+                <a href="#kuis" class="px-3 py-2 rounded-lg text-gray-700 dark:text-gray-200 hover:text-lampung-green dark:hover:text-lampung-green-light hover:bg-gray-100 dark:hover:bg-lampung-darkcard transition">Kuis</a>
+                <a href="#refleksi" class="px-3 py-2 rounded-lg text-gray-700 dark:text-gray-200 hover:text-lampung-green dark:hover:text-lampung-green-light hover:bg-gray-100 dark:hover:bg-lampung-darkcard transition">Refleksi</a>
+                <a href="#referensi" class="px-3 py-2 rounded-lg text-gray-700 dark:text-gray-200 hover:text-lampung-green dark:hover:text-lampung-green-light hover:bg-gray-100 dark:hover:bg-lampung-darkcard transition">Referensi</a>
+                <a href="#profil" class="px-3 py-2 rounded-lg text-gray-700 dark:text-gray-200 hover:text-lampung-green dark:hover:text-lampung-green-light hover:bg-gray-100 dark:hover:bg-lampung-darkcard transition">Profil</a>
+            </nav>
+
+            <!-- Utility Controls -->
+            <div class="flex items-center gap-2">
+                <!-- Bookmark Quick Drawer Button -->
+                <button id="bookmarkDrawerBtn" title="Lihat Bookmark" class="relative p-2.5 rounded-xl bg-gray-100 dark:bg-lampung-darkcard text-gray-700 dark:text-gray-200 hover:bg-lampung-gold hover:text-white transition">
+                    <i class="fa-solid fa-bookmark text-base"></i>
+                    <span id="bookmarkBadge" class="absolute -top-1 -right-1 bg-lampung-gold text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+                </button>
+
+                <!-- Dark Mode Toggle -->
+                <button id="darkModeBtn" title="Alihkan Mode Gelap/Terang" class="p-2.5 rounded-xl bg-gray-100 dark:bg-lampung-darkcard text-lampung-brown dark:text-lampung-gold hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                    <i id="darkModeIcon" class="fa-solid fa-moon text-base"></i>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="lg:hidden p-2.5 rounded-xl bg-gray-100 dark:bg-lampung-darkcard text-gray-700 dark:text-gray-200">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Navigation -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-white dark:bg-lampung-darkbg border-b border-gray-200 dark:border-lampung-darkborder px-4 pt-2 pb-6 space-y-1">
+            <a href="#beranda" class="mobile-nav-link block px-3 py-2 rounded-md font-semibold text-gray-700 dark:text-gray-200 hover:bg-lampung-green hover:text-white">Beranda</a>
+            <a href="#tentang" class="mobile-nav-link block px-3 py-2 rounded-md font-semibold text-gray-700 dark:text-gray-200 hover:bg-lampung-green hover:text-white">Tentang</a>
+            <a href="#materi" class="mobile-nav-link block px-3 py-2 rounded-md font-semibold text-gray-700 dark:text-gray-200 hover:bg-lampung-green hover:text-white">Materi Pembelajaran</a>
+            <a href="#timeline" class="mobile-nav-link block px-3 py-2 rounded-md font-semibold text-gray-700 dark:text-gray-200 hover:bg-lampung-green hover:text-white">Timeline Sejarah</a>
+            <a href="#peta" class="mobile-nav-link block px-3 py-2 rounded-md font-semibold text-gray-700 dark:text-gray-200 hover:bg-lampung-green hover:text-white">Peta Sejarah</a>
+            <a href="#video" class="mobile-nav-link block px-3 py-2 rounded-md font-semibold text-gray-700 dark:text-gray-200 hover:bg-lampung-green hover:text-white">Video Pembelajaran</a>
+            <a href="#aktivitas" class="mobile-nav-link block px-3 py-2 rounded-md font-semibold text-gray-700 dark:text-gray-200 hover:bg-lampung-green hover:text-white">Aktivitas Siswa</a>
+            <a href="#kuis" class="mobile-nav-link block px-3 py-2 rounded-md font-semibold text-gray-700 dark:text-gray-200 hover:bg-lampung-green hover:text-white">Kuis Interaktif</a>
+            <a href="#refleksi" class="mobile-nav-link block px-3 py-2 rounded-md font-semibold text-gray-700 dark:text-gray-200 hover:bg-lampung-green hover:text-white">Jurnal Refleksi</a>
+            <a href="#referensi" class="mobile-nav-link block px-3 py-2 rounded-md font-semibold text-gray-700 dark:text-gray-200 hover:bg-lampung-green hover:text-white">Referensi</a>
+            <a href="#profil" class="mobile-nav-link block px-3 py-2 rounded-md font-semibold text-gray-700 dark:text-gray-200 hover:bg-lampung-green hover:text-white">Profil Pengembang</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="relative overflow-hidden py-16 lg:py-24 bg-gradient-to-br from-lampung-green/10 via-lampung-white to-lampung-blue/10 dark:from-lampung-darkbg dark:via-lampung-darkcard dark:to-lampung-darkbg">
+        <div class="siger-bg absolute inset-0 pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Hero Left Content -->
+                <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-lampung-green/10 dark:bg-lampung-green/20 border border-lampung-green/30 text-lampung-green dark:text-lampung-green-light font-bold text-xs sm:text-sm tracking-wide">
+                        <i class="fa-solid fa-leaf text-lampung-gold"></i>
+                        <span>Media Pembelajaran Digital Sejarah SMA & Mahasiswa</span>
+                    </div>
+
+                    <h1 class="font-poppins font-extrabold text-3xl sm:text-5xl lg:text-6xl text-gray-900 dark:text-white leading-tight">
+                        Sejarah Lokal Lampung Berbasis <span class="text-transparent bg-clip-text bg-gradient-to-r from-lampung-green via-lampung-gold to-lampung-blue">Ecopedagogy</span>
+                    </h1>
+
+                    <p class="font-inter text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl leading-relaxed">
+                        "Belajar sejarah lokal untuk membangun kesadaran ekologis, berpikir kritis, serta menciptakan masa depan yang berkelanjutan melalui pendekatan <span class="font-bold text-lampung-green dark:text-lampung-green-light">Deep Learning</span> (Meaningful, Mindful, & Joyful)."
+                    </p>
+
+                    <!-- Hero Call to Action Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#materi" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-lampung-green to-lampung-green-dark hover:from-lampung-green-dark hover:to-lampung-green text-white font-poppins font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-3 group">
+                            <span>Mulai Belajar</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <a href="#peta" class="w-full sm:w-auto px-8 py-4 rounded-xl border-2 border-lampung-brown text-lampung-brown dark:text-lampung-gold dark:border-lampung-gold hover:bg-lampung-brown hover:text-white dark:hover:bg-lampung-gold dark:hover:text-gray-900 font-poppins font-bold transition-all flex items-center justify-center gap-3">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                            <span>Jelajahi Peta Sejarah</span>
+                        </a>
+                    </div>
+
+                    <!-- Highlight Badges -->
+                    <div class="pt-6 grid grid-cols-3 gap-4 border-t border-gray-200 dark:border-lampung-darkborder text-center lg:text-left">
+                        <div>
+                            <span class="block font-poppins font-extrabold text-2xl text-lampung-green dark:text-lampung-green-light">9 Modul</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">Materi Lengkap</span>
+                        </div>
+                        <div>
+                            <span class="block font-poppins font-extrabold text-2xl text-lampung-gold">8 Lokasi</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">Peta Ekologis</span>
+                        </div>
+                        <div>
+                            <span class="block font-poppins font-extrabold text-2xl text-lampung-blue">15+ Soal</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">Kuis & Evaluasi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Right Illustration Graphic -->
+                <div class="lg:col-span-5 relative flex justify-center">
+                    <div class="relative w-full max-w-md p-6 glass-card rounded-3xl shadow-2xl border border-lampung-gold/30 space-y-6">
+                        <!-- Custom SVG Lampung Cultural Landscape Illustration -->
+                        <div class="w-full h-64 rounded-2xl overflow-hidden bg-gradient-to-b from-blue-400 via-green-300 to-lampung-green relative flex items-end justify-center">
+                            <!-- Sun / Gold Symbol -->
+                            <div class="absolute top-4 right-6 w-12 h-12 bg-lampung-gold rounded-full blur-xs opacity-90 animate-pulse"></div>
+                            
+                            <!-- Bukit Barisan Mountains SVG -->
+                            <svg class="absolute bottom-0 w-full h-40 text-lampung-green-dark fill-current opacity-80" viewBox="0 0 500 150">
+                                <path d="M0,150 L0,80 L70,30 L150,90 L230,20 L320,100 L410,40 L500,100 L500,150 Z"></path>
+                            </svg>
+                            <svg class="absolute bottom-0 w-full h-28 text-lampung-green fill-current opacity-90" viewBox="0 0 500 150">
+                                <path d="M0,150 L0,100 L110,40 L200,110 L300,50 L400,120 L500,70 L500,150 Z"></path>
+                            </svg>
+
+                            <!-- Cultural Siger Graphic -->
+                            <div class="absolute top-8 left-1/2 -translate-x-1/2 text-lampung-gold drop-shadow-lg text-center">
+                                <i class="fa-solid fa-crown text-5xl"></i>
+                                <span class="block text-xs font-poppins font-bold text-white tracking-widest uppercase mt-1">Siger Lampung</span>
+                            </div>
+
+                            <!-- Way Kambas Elephant SVG Silhouette -->
+                            <div class="relative z-10 mb-2 flex items-center justify-between w-full px-6">
+                                <div class="text-white drop-shadow-md">
+                                    <i class="fa-solid fa-shield-halved text-2xl text-lampung-gold"></i>
+                                    <span class="block text-[10px] font-bold">Repong Damar</span>
+                                </div>
+                                <div class="text-amber-100 drop-shadow-md text-right">
+                                    <i class="fa-solid fa-hippo text-3xl text-lampung-brown-dark"></i>
+                                    <span class="block text-[10px] font-bold">Gajah Way Kambas</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Mini Info -->
+                        <div class="bg-lampung-green/10 dark:bg-lampung-green/20 p-4 rounded-xl flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-lampung-green text-white flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-seedling"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-poppins font-bold text-sm text-gray-900 dark:text-white">Ekopedagogy Sejarah</h4>
+                                <p class="text-xs text-gray-600 dark:text-gray-300">Menghubungkan peristiwa masa lalu dengan kelestarian alam Lampung saat ini.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Tentang Ecopedagogy & Deep Learning -->
+    <section id="tentang" class="py-16 bg-white dark:bg-lampung-darkbg border-y border-gray-200 dark:border-lampung-darkborder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-lampung-green dark:text-lampung-green-light font-bold text-sm uppercase tracking-wider">Konsep & Pendekatan</span>
+                <h2 class="font-poppins font-extrabold text-3xl sm:text-4xl text-gray-900 dark:text-white mt-1">
+                    Mengapa Ecopedagogy & Deep Learning?
+                </h2>
+                <p class="text-gray-600 dark:text-gray-300 mt-3 text-sm sm:text-base">
+                    Pembelajaran sejarah tidak sekadar menghafal tanggal dan nama tokoh, melainkan merefleksikan bagaimana interaksi manusia Lampung dengan alamnya membentuk identitas, kebudayaan, dan tantangan lingkungan hidup.
+                </p>
+            </div>
+
+            <!-- 3 Pillars Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Meaningful Learning -->
+                <div class="p-8 rounded-2xl glass-card border-t-4 border-lampung-green shadow-sm hover:shadow-md transition">
+                    <div class="w-14 h-14 rounded-2xl bg-lampung-green/10 text-lampung-green dark:text-lampung-green-light flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <h3 class="font-poppins font-bold text-xl text-gray-900 dark:text-white mb-2">1. Meaningful Learning</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                        Pembelajaran bermakna yang menghubungkan materi sejarah lokal Lampung dengan pengalaman nyata kehidupan siswa serta isu krisis ekologi di sekitarnya.
+                    </p>
+                </div>
+
+                <!-- Mindful Learning -->
+                <div class="p-8 rounded-2xl glass-card border-t-4 border-lampung-gold shadow-sm hover:shadow-md transition">
+                    <div class="w-14 h-14 rounded-2xl bg-lampung-gold/10 text-lampung-gold flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                    <h3 class="font-poppins font-bold text-xl text-gray-900 dark:text-white mb-2">2. Mindful Learning</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                        Pembelajaran sadar yang melatih siswa berpikir kritis, menganalisis hubungan sebab-akibat alih fungsi hutan, serta menumbuhkan empati pada lingkungan.
+                    </p>
+                </div>
+
+                <!-- Joyful Learning -->
+                <div class="p-8 rounded-2xl glass-card border-t-4 border-lampung-blue shadow-sm hover:shadow-md transition">
+                    <div class="w-14 h-14 rounded-2xl bg-lampung-blue/10 text-lampung-blue flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-face-smile"></i>
+                    </div>
+                    <h3 class="font-poppins font-bold text-xl text-gray-900 dark:text-white mb-2">3. Joyful Learning</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                        Pembelajaran menyenangkan melalui eksplorasi media interaktif, flip card kearifan lokal, studi kasus visual, peta ekologis, serta simulasi proyek.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENU KHUSUS MATERI (Pusat Utama Website) -->
+    <section id="materi" class="py-16 bg-gray-50 dark:bg-lampung-darkbg/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Header Section -->
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-8 gap-4">
+                <div>
+                    <span class="px-3 py-1 bg-lampung-gold text-white text-xs font-extrabold rounded-full uppercase tracking-wider">Modul Lengkap</span>
+                    <h2 class="font-poppins font-extrabold text-3xl sm:text-4xl text-gray-900 dark:text-white mt-2">
+                        Pusat Materi Sejarah & Ecopedagogy
+                    </h2>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Eksplorasi 9 modul interaktif untuk memahami sejarah lokal Lampung secara komprehensif.</p>
+                </div>
+
+                <!-- Search & Progress Tracker -->
+                <div class="flex flex-col sm:flex-row items-center gap-3">
+                    <!-- Search Input -->
+                    <div class="relative w-full sm:w-64">
+                        <input type="text" id="materiSearchInput" placeholder="Cari topik materi..." class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-300 dark:border-lampung-darkborder bg-white dark:bg-lampung-darkcard text-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-lampung-green">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-gray-400 text-sm"></i>
+                    </div>
+
+                    <!-- Overall Module Progress Bar -->
+                    <div class="w-full sm:w-48 bg-white dark:bg-lampung-darkcard p-2.5 rounded-xl border border-gray-200 dark:border-lampung-darkborder">
+                        <div class="flex justify-between items-center text-xs font-bold mb-1">
+                            <span class="text-gray-600 dark:text-gray-300">Progres Belajar</span>
+                            <span id="overallProgressPercent" class="text-lampung-green dark:text-lampung-green-light">0%</span>
+                        </div>
+                        <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                            <div id="overallProgressBar" class="h-full bg-lampung-green transition-all duration-300" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content Grid with Sidebar & Display Area -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Sidebar Nav Tabs -->
+                <div class="lg:col-span-4 bg-white dark:bg-lampung-darkcard rounded-2xl shadow-md border border-gray-200 dark:border-lampung-darkborder p-4 sticky top-24 max-h-[80vh] overflow-y-auto">
+                    <div class="flex items-center justify-between pb-3 border-b border-gray-200 dark:border-lampung-darkborder mb-3">
+                        <h3 class="font-poppins font-bold text-sm text-gray-900 dark:text-white uppercase tracking-wider">Daftar Modul</h3>
+                        <span class="text-xs text-gray-500 font-semibold">9 Topik</span>
+                    </div>
+
+                    <div class="space-y-1.5" id="moduleNavList">
+                        <!-- Navigation Item Modul 1 -->
+                        <button onclick="switchModule(1)" id="modTab1" class="mod-tab-btn active w-full text-left p-3 rounded-xl font-medium text-xs sm:text-sm flex items-center justify-between transition bg-lampung-green text-white shadow-sm">
+                            <div class="flex items-center gap-3">
+                                <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center font-bold text-xs">1</span>
+                                <span class="font-poppins font-semibold">Pengantar Sejarah Lokal</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+
+                        <!-- Navigation Item Modul 2 -->
+                        <button onclick="switchModule(2)" id="modTab2" class="mod-tab-btn w-full text-left p-3 rounded-xl font-medium text-xs sm:text-sm flex items-center justify-between transition text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-lampung-darkborder">
+                            <div class="flex items-center gap-3">
+                                <span class="w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 flex items-center justify-center font-bold text-xs">2</span>
+                                <span class="font-poppins font-semibold">Perjalanan Sejarah Lampung</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+
+                        <!-- Navigation Item Modul 3 -->
+                        <button onclick="switchModule(3)" id="modTab3" class="mod-tab-btn w-full text-left p-3 rounded-xl font-medium text-xs sm:text-sm flex items-center justify-between transition text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-lampung-darkborder">
+                            <div class="flex items-center gap-3">
+                                <span class="w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 flex items-center justify-center font-bold text-xs">3</span>
+                                <span class="font-poppins font-semibold">Kearifan Lokal Lampung</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+
+                        <!-- Navigation Item Modul 4 -->
+                        <button onclick="switchModule(4)" id="modTab4" class="mod-tab-btn w-full text-left p-3 rounded-xl font-medium text-xs sm:text-sm flex items-center justify-between transition text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-lampung-darkborder">
+                            <div class="flex items-center gap-3">
+                                <span class="w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 flex items-center justify-center font-bold text-xs">4</span>
+                                <span class="font-poppins font-semibold">Ecopedagogy Sejarah</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+
+                        <!-- Navigation Item Modul 5 -->
+                        <button onclick="switchModule(5)" id="modTab5" class="mod-tab-btn w-full text-left p-3 rounded-xl font-medium text-xs sm:text-sm flex items-center justify-between transition text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-lampung-darkborder">
+                            <div class="flex items-center gap-3">
+                                <span class="w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 flex items-center justify-center font-bold text-xs">5</span>
+                                <span class="font-poppins font-semibold">Pendekatan Deep Learning</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+
+                        <!-- Navigation Item Modul 6 -->
+                        <button onclick="switchModule(6)" id="modTab6" class="mod-tab-btn w-full text-left p-3 rounded-xl font-medium text-xs sm:text-sm flex items-center justify-between transition text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-lampung-darkborder">
+                            <div class="flex items-center gap-3">
+                                <span class="w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 flex items-center justify-center font-bold text-xs">6</span>
+                                <span class="font-poppins font-semibold">Green History Lampung</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+
+                        <!-- Navigation Item Modul 7 -->
+                        <button onclick="switchModule(7)" id="modTab7" class="mod-tab-btn w-full text-left p-3 rounded-xl font-medium text-xs sm:text-sm flex items-center justify-between transition text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-lampung-darkborder">
+                            <div class="flex items-center gap-3">
+                                <span class="w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 flex items-center justify-center font-bold text-xs">7</span>
+                                <span class="font-poppins font-semibold">Studi Kasus Alih Fungsi</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+
+                        <!-- Navigation Item Modul 8 -->
+                        <button onclick="switchModule(8)" id="modTab8" class="mod-tab-btn w-full text-left p-3 rounded-xl font-medium text-xs sm:text-sm flex items-center justify-between transition text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-lampung-darkborder">
+                            <div class="flex items-center gap-3">
+                                <span class="w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 flex items-center justify-center font-bold text-xs">8</span>
+                                <span class="font-poppins font-semibold">Project Based Learning</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+
+                        <!-- Navigation Item Modul 9 -->
+                        <button onclick="switchModule(9)" id="modTab9" class="mod-tab-btn w-full text-left p-3 rounded-xl font-medium text-xs sm:text-sm flex items-center justify-between transition text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-lampung-darkborder">
+                            <div class="flex items-center gap-3">
+                                <span class="w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 flex items-center justify-center font-bold text-xs">9</span>
+                                <span class="font-poppins font-semibold">Ringkasan & Mind Map</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module Content Display Card -->
+                <div class="lg:col-span-8 bg-white dark:bg-lampung-darkcard rounded-2xl shadow-lg border border-gray-200 dark:border-lampung-darkborder p-6 sm:p-8 min-h-[600px] relative">
+                    
+                    <!-- Breadcrumbs & Bookmark Toggle Header -->
+                    <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-lampung-darkborder mb-6">
+                        <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 font-medium">
+                            <span>Materi</span>
+                            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                            <span id="breadcrumbModuleTitle" class="text-lampung-green dark:text-lampung-green-light font-bold">Modul 1: Pengantar Sejarah Lokal</span>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <!-- Bookmark Current Module Button -->
+                            <button id="bookmarkToggleBtn" onclick="toggleBookmarkCurrentModule()" class="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border border-gray-300 dark:border-lampung-darkborder hover:bg-lampung-gold hover:text-white hover:border-lampung-gold transition">
+                                <i id="bookmarkIcon" class="fa-regular fa-bookmark"></i>
+                                <span id="bookmarkText">Simpan Bookmark</span>
+                            </button>
+
+                            <!-- Mark as Completed Checkbox -->
+                            <button id="completeToggleBtn" onclick="toggleModuleCompletion()" class="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-lampung-green hover:text-white transition">
+                                <i id="completeIcon" class="fa-regular fa-circle-check"></i>
+                                <span id="completeText">Selesai Dibaca</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Content Container -->
+                    <div id="moduleContentContainer" class="space-y-6">
+                        <!-- MODULE 1: PENGANTAR SEJARAH LOKAL LAMPUNG -->
+                        <div id="moduleContent1" class="module-view space-y-6">
+                            <div class="relative rounded-2xl overflow-hidden bg-gradient-to-r from-lampung-green to-lampung-brown text-white p-6 sm:p-8">
+                                <div class="relative z-10 space-y-2">
+                                    <span class="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold uppercase">Modul 1</span>
+                                    <h3 class="font-poppins font-extrabold text-2xl sm:text-3xl">Pengantar Sejarah Lokal Lampung</h3>
+                                    <p class="text-xs sm:text-sm text-green-100 max-w-xl">Konsep dasar, karakteristik, serta relevansi sejarah lokal dalam membentuk kesadaran sejarah dan identitas ekologis masyarakat Lampung.</p>
+                                </div>
+                                <i class="fa-solid fa-landmark absolute right-4 bottom-2 text-8xl opacity-15 pointer-events-none"></i>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="p-5 rounded-xl bg-gray-50 dark:bg-lampung-darkborder/40 border border-gray-200 dark:border-lampung-darkborder">
+                                    <h4 class="font-poppins font-bold text-lampung-green dark:text-lampung-green-light text-base mb-2 flex items-center gap-2">
+                                        <i class="fa-solid fa-book-open"></i> Pengertian Sejarah Lokal
+                                    </h4>
+                                    <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                                        Sejarah lokal adalah kisah peristiwa masa lalu yang terjadi dalam lingkup geografis dan spasial terbatas (kabupaten, kota, desa, atau komunitas adat Lampung) yang berdampak langsung pada kehidupan sosial-budaya setempat.
+                                    </p>
+                                </div>
+
+                                <div class="p-5 rounded-xl bg-gray-50 dark:bg-lampung-darkborder/40 border border-gray-200 dark:border-lampung-darkborder">
+                                    <h4 class="font-poppins font-bold text-lampung-brown dark:text-lampung-gold text-base mb-2 flex items-center gap-2">
+                                        <i class="fa-solid fa-tags"></i> Karakteristik Utama
+                                    </h4>
+                                    <ul class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 space-y-1.5 list-disc list-inside">
+                                        <li>Berbasis pada ruang hidup masyarakat lokal.</li>
+                                        <li>Kaya akan tradisi lisan, folklor, dan naskah kuno (Aksara Lampung/Kaganga).</li>
+                                        <li>Sangat terikat dengan kondisi ekosistem lokal (hutan, sungai, pesisir).</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Accordion Detail -->
+                            <div class="space-y-3 pt-2">
+                                <h4 class="font-poppins font-bold text-base text-gray-900 dark:text-white">Mengapa Mempelajari Sejarah Lokal Lampung?</h4>
+                                
+                                <div class="border border-gray-200 dark:border-lampung-darkborder rounded-xl overflow-hidden">
+                                    <button onclick="toggleAccordion('acc1')" class="w-full text-left p-4 bg-gray-100 dark:bg-lampung-darkborder/60 font-semibold text-xs sm:text-sm flex items-center justify-between text-gray-800 dark:text-gray-200">
+                                        <span>1. Pembentuk Identitas & Rasa Memiliki (Sense of Belonging)</span>
+                                        <i id="acc1Icon" class="fa-solid fa-chevron-down transition-transform"></i>
+                                    </button>
+                                    <div id="acc1" class="hidden p-4 text-xs sm:text-sm text-gray-600 dark:text-gray-300 bg-white dark:bg-lampung-darkcard border-t border-gray-200 dark:border-lampung-darkborder">
+                                        Memahami asal-usul, migrasi, serta kearifan nenek moyang Lampung menumbuhkan rasa bangga terhadap warisan budaya nusantara serta tanggung jawab merawat tanah kelahiran.
+                                    </div>
+                                </div>
+
+                                <div class="border border-gray-200 dark:border-lampung-darkborder rounded-xl overflow-hidden">
+                                    <button onclick="toggleAccordion('acc2')" class="w-full text-left p-4 bg-gray-100 dark:bg-lampung-darkborder/60 font-semibold text-xs sm:text-sm flex items-center justify-between text-gray-800 dark:text-gray-200">
+                                        <span>2. Pondasi Kesadaran Ekologis (Ecopedagogy)</span>
+                                        <i id="acc2Icon" class="fa-solid fa-chevron-down transition-transform"></i>
+                                    </button>
+                                    <div id="acc2" class="hidden p-4 text-xs sm:text-sm text-gray-600 dark:text-gray-300 bg-white dark:bg-lampung-darkcard border-t border-gray-200 dark:border-lampung-darkborder">
+                                        Masyarakat Lampung kuno mengelola hutan damar (Repong Damar) dan pesisir dengan norma adat teratur. Mempelajari sejarah lokal memberikan pelajaran berharga dalam menghadapi krisis iklim modern.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Latihan Singkat Checkbox -->
+                            <div class="p-5 bg-lampung-green/10 dark:bg-lampung-green/20 rounded-xl border border-lampung-green/30">
+                                <h5 class="font-poppins font-bold text-sm text-lampung-green dark:text-lampung-green-light mb-2">Latihan Cepat Modul 1:</h5>
+                                <p class="text-xs text-gray-700 dark:text-gray-300 mb-3">Manakah di bawah ini yang merupakan salah satu karakteristik sejarah lokal Lampung?</p>
+                                <div class="space-y-2 text-xs">
+                                    <label class="flex items-center gap-2 cursor-pointer p-2 rounded bg-white dark:bg-lampung-darkcard border border-gray-200 dark:border-lampung-darkborder hover:bg-green-50 dark:hover:bg-gray-800">
+                                        <input type="radio" name="m1quiz" value="a" class="accent-lampung-green">
+                                        <span>A. Hanya berfokus pada sejarah politik Kerajaan Eropa.</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer p-2 rounded bg-white dark:bg-lampung-darkcard border border-gray-200 dark:border-lampung-darkborder hover:bg-green-50 dark:hover:bg-gray-800">
+                                        <input type="radio" name="m1quiz" value="b" id="m1correct" class="accent-lampung-green">
+                                        <span>B. Berbasis ruang hidup lokal dan terikat erat dengan ekosistem lingkungan setempat.</span>
+                                    </label>
+                                </div>
+                                <button onclick="checkM1Quiz()" class="mt-3 px-4 py-1.5 bg-lampung-green text-white rounded-lg text-xs font-bold hover:bg-lampung-green-dark transition">Periksa Jawaban</button>
+                                <p id="m1QuizFeedback" class="text-xs font-bold mt-2 hidden"></p>
+                            </div>
+                        </div>
+
+                        <!-- MODULE 2: PERJALANAN SEJARAH LAMPUNG -->
+                        <div id="moduleContent2" class="module-view hidden space-y-6">
+                            <div class="relative rounded-2xl overflow-hidden bg-gradient-to-r from-lampung-brown to-lampung-gold text-white p-6 sm:p-8">
+                                <div class="relative z-10 space-y-2">
+                                    <span class="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold uppercase">Modul 2</span>
+                                    <h3 class="font-poppins font-extrabold text-2xl sm:text-3xl">Perjalanan Sejarah Lampung</h3>
+                                    <p class="text-xs sm:text-sm text-amber-100 max-w-xl">Periodisasi sejarah Lampung dari era megalitikum hingga perkembangan era modern.</p>
+                                </div>
+                                <i class="fa-solid fa-timeline absolute right-4 bottom-2 text-8xl opacity-15 pointer-events-none"></i>
+                            </div>
+
+                            <!-- Interactive Mini Timeline -->
+                            <div class="space-y-4">
+                                <h4 class="font-poppins font-bold text-base text-gray-900 dark:text-white">Periodisasi Sejarah Lampung:</h4>
+                                
+                                <div class="space-y-3">
+                                    <div class="p-4 rounded-xl border border-gray-200 dark:border-lampung-darkborder bg-white dark:bg-lampung-darkcard hover:shadow-md transition">
+                                        <div class="flex items-center justify-between mb-1">
+                                            <span class="font-poppins font-bold text-sm text-lampung-green dark:text-lampung-green-light">1. Masa Prasejarah (Situs Pugung Raharjo)</span>
+                                            <span class="text-xs bg-lampung-green/10 text-lampung-green dark:text-lampung-green-light px-2.5 py-0.5 rounded-full font-bold">Megalitikum</span>
+                                        </div>
+                                        <p class="text-xs text-gray-600 dark:text-gray-300">Ditemukan punden berundak, batu mayat, dan benteng parit air yang menunjukkan harmonisasi awal manusia Lampung dengan lanskap air dan perbukitan.</p>
+                                    </div>
+
+                                    <div class="p-4 rounded-xl border border-gray-200 dark:border-lampung-darkborder bg-white dark:bg-lampung-darkcard hover:shadow-md transition">
+                                        <div class="flex items-center justify-between mb-1">
+                                            <span class="font-poppins font-bold text-sm text-lampung-brown dark:text-lampung-gold">2. Masa Hindu-Buddha & Kerajaan Penggawa</span>
+                                            <span class="text-xs bg-lampung-brown/10 text-lampung-brown dark:text-lampung-gold px-2.5 py-0.5 rounded-full font-bold">Abad 7-14 M</span>
+                                        </div>
+                                        <p class="text-xs text-gray-600 dark:text-gray-300">Pengaruh Sriwijaya dan ditemukannya prasasti-prasasti kuno di pesisir Lampung yang mencatat jalur perdagangan rempah dan lada hitam.</p>
+                                    </div>
+
+                                    <div class="p-4 rounded-xl border border-gray-200 dark:border-lampung-darkborder bg-white dark:bg-lampung-darkcard hover:shadow-md transition">
+                                        <div class="flex items-center justify-between mb-1">
+                                            <span class="font-poppins font-bold text-sm text-lampung-blue">3. Masa Kesultanan Banten & Perdagangan Lada</span>
+                                            <span class="text-xs bg-lampung-blue/10 text-lampung-blue px-2.5 py-0.5 rounded-full font-bold">Abad 16-18 M</span>
+                                        </div>
+                                        <p class="text-xs text-gray-600 dark:text-gray-300">Lampung menjadi pemasok utama lada hitam dunia. Ikatan diplomatik dan ekonomi yang erat antara kebuwaian Lampung dengan Kesultanan Banten.</p>
+                                    </div>
+
+                                    <div class="p-4 rounded-xl border border-gray-200 dark:border-lampung-darkborder bg-white dark:bg-lampung-darkcard hover:shadow-md transition">
+                                        <div class="flex items-center justify-between mb-1">
+                                            <span class="font-poppins font-bold text-sm text-red-600 dark:text-red-400">4. Kolonial Belanda & Program Transmigrasi (1905)</span>
+                                            <span class="text-xs bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300 px-2.5 py-0.5 rounded-full font-bold">Abad 19-20</span>
+                                        </div>
+                                        <p class="text-xs text-gray-600 dark:text-gray-300">Eksploitasi perkebunan besar (kopi, karet, lada) serta pembukaan lahan hutan secara masif yang mengubah lanskap ekologi dan demografi Lampung.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- MODULE 3: KEARIFAN LOKAL LAMPUNG (FLIP CARDS) -->
+                        <div id="moduleContent3" class="module-view hidden space-y-6">
+                            <div class="relative rounded-2xl overflow-hidden bg-gradient-to-r from-lampung-gold to-lampung-green text-white p-6 sm:p-8">
+                                <div class="relative z-10 space-y-2">
+                                    <span class="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold uppercase">Modul 3</span>
+                                    <h3 class="font-poppins font-extrabold text-2xl sm:text-3xl">Kearifan Lokal & Falsafah Piil Pesenggiri</h3>
+                                    <p class="text-xs sm:text-sm text-yellow-100 max-w-xl">Klik kartu di bawah untuk membalik dan mempelajari nilai-nilai kearifan lokal Lampung!</p>
+                                </div>
+                                <i class="fa-solid fa-hands-holding-circle absolute right-4 bottom-2 text-8xl opacity-15 pointer-events-none"></i>
+                            </div>
+
+                            <!-- Flip Cards Grid -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                
+                                <!-- Card 1: Piil Pesenggiri -->
+                                <div class="flip-card h-64 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                                    <div class="flip-card-inner">
+                                        <div class="flip-card-front bg-gradient-to-br from-lampung-green to-lampung-green-dark text-white p-6 flex flex-col justify-between shadow-md">
+                                            <div class="text-left">
+                                                <span class="text-[10px] uppercase tracking-wider font-bold bg-white/20 px-2 py-0.5 rounded">Falsafah Utama</span>
+                                                <h4 class="font-poppins font-bold text-xl mt-2">Piil Pesenggiri</h4>
+                                            </div>
+                                            <div class="text-center py-4">
+                                                <i class="fa-solid fa-gem text-4xl text-lampung-gold"></i>
+                                                <p class="text-xs mt-2 font-medium opacity-90">Kehormatan & Harga Diri Berartabat</p>
+                                            </div>
+                                            <span class="text-[10px] text-right text-lampung-gold font-bold">Klik untuk Balik <i class="fa-solid fa-rotate"></i></span>
+                                        </div>
+                                        <div class="flip-card-back bg-white dark:bg-lampung-darkcard border-2 border-lampung-green p-5 flex flex-col justify-between text-left shadow-md">
+                                            <div>
+                                                <h5 class="font-poppins font-bold text-sm text-lampung-green dark:text-lampung-green-light">Piil Pesenggiri</h5>
+                                                <p class="text-xs text-gray-600 dark:text-gray-300 mt-2">Prinsip moral utama masyarakat Lampung untuk menjaga martabat, keluhuran budi, serta kebanggaan daerah.</p>
+                                                <div class="mt-3 text-[11px] font-semibold text-gray-700 dark:text-gray-300">
+                                                    <span class="text-lampung-gold font-bold">Implementasi:</span> Menjaga nama baik lingkungan dan tanah kelahiran.
+                                                </div>
+                                            </div>
+                                            <span class="text-[10px] text-right text-gray-400">Klik untuk Kembalikan</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Card 2: Nemui Nyimah -->
+                                <div class="flip-card h-64 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                                    <div class="flip-card-inner">
+                                        <div class="flip-card-front bg-gradient-to-br from-lampung-brown to-lampung-brown-dark text-white p-6 flex flex-col justify-between shadow-md">
+                                            <div class="text-left">
+                                                <span class="text-[10px] uppercase tracking-wider font-bold bg-white/20 px-2 py-0.5 rounded">Nilai Sosial</span>
+                                                <h4 class="font-poppins font-bold text-xl mt-2">Nemui Nyimah</h4>
+                                            </div>
+                                            <div class="text-center py-4">
+                                                <i class="fa-solid fa-handshake-angle text-4xl text-lampung-gold"></i>
+                                                <p class="text-xs mt-2 font-medium opacity-90">Keramahan & Saling Memberi</p>
+                                            </div>
+                                            <span class="text-[10px] text-right text-lampung-gold font-bold">Klik untuk Balik <i class="fa-solid fa-rotate"></i></span>
+                                        </div>
+                                        <div class="flip-card-back bg-white dark:bg-lampung-darkcard border-2 border-lampung-brown p-5 flex flex-col justify-between text-left shadow-md">
+                                            <div>
+                                                <h5 class="font-poppins font-bold text-sm text-lampung-brown dark:text-lampung-gold">Nemui Nyimah</h5>
+                                                <p class="text-xs text-gray-600 dark:text-gray-300 mt-2">Sikap ramah tamah, pemurah, dan bersilaturahmi dengan siapa saja tanpa membedakan suku atau latar belakang.</p>
+                                                <div class="mt-3 text-[11px] font-semibold text-gray-700 dark:text-gray-300">
+                                                    <span class="text-lampung-gold font-bold">Implementasi:</span> Menerima pendatang dan pendatang menjaga alam Lampung bersama.
+                                                </div>
+                                            </div>
+                                            <span class="text-[10px] text-right text-gray-400">Klik untuk Kembalikan</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Card 3: Nengah Nyappur -->
+                                <div class="flip-card h-64 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                                    <div class="flip-card-inner">
+                                        <div class="flip-card-front bg-gradient-to-br from-lampung-blue to-blue-900 text-white p-6 flex flex-col justify-between shadow-md">
+                                            <div class="text-left">
+                                                <span class="text-[10px] uppercase tracking-wider font-bold bg-white/20 px-2 py-0.5 rounded">Pergaulan</span>
+                                                <h4 class="font-poppins font-bold text-xl mt-2">Nengah Nyappur</h4>
+                                            </div>
+                                            <div class="text-center py-4">
+                                                <i class="fa-solid fa-users text-4xl text-lampung-gold"></i>
+                                                <p class="text-xs mt-2 font-medium opacity-90">Membuka Diri & Berwawasan Luas</p>
+                                            </div>
+                                            <span class="text-[10px] text-right text-lampung-gold font-bold">Klik untuk Balik <i class="fa-solid fa-rotate"></i></span>
+                                        </div>
+                                        <div class="flip-card-back bg-white dark:bg-lampung-darkcard border-2 border-lampung-blue p-5 flex flex-col justify-between text-left shadow-md">
+                                            <div>
+                                                <h5 class="font-poppins font-bold text-sm text-lampung-blue">Nengah Nyappur</h5>
+                                                <p class="text-xs text-gray-600 dark:text-gray-300 mt-2">Sifat suka bergaul, bermusyawarah, dan membuka diri terhadap wawasan baru yang membangun masyarakat.</p>
+                                                <div class="mt-3 text-[11px] font-semibold text-gray-700 dark:text-gray-300">
+                                                    <span class="text-lampung-gold font-bold">Implementasi:</span> Berkolaborasi dalam gerakan sains dan konservasi lingkungan.
+                                                </div>
+                                            </div>
+                                            <span class="text-[10px] text-right text-gray-400">Klik untuk Kembalikan</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Card 4: Sakai Sambayan -->
+                                <div class="flip-card h-64 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                                    <div class="flip-card-inner">
+                                        <div class="flip-card-front bg-gradient-to-br from-emerald-600 to-green-900 text-white p-6 flex flex-col justify-between shadow-md">
+                                            <div class="text-left">
+                                                <span class="text-[10px] uppercase tracking-wider font-bold bg-white/20 px-2 py-0.5 rounded">Gotong Royong</span>
+                                                <h4 class="font-poppins font-bold text-xl mt-2">Sakai Sambayan</h4>
+                                            </div>
+                                            <div class="text-center py-4">
+                                                <i class="fa-solid fa-people-carry-box text-4xl text-lampung-gold"></i>
+                                                <p class="text-xs mt-2 font-medium opacity-90">Tolong Menolong & Kerja Sama</p>
+                                            </div>
+                                            <span class="text-[10px] text-right text-lampung-gold font-bold">Klik untuk Balik <i class="fa-solid fa-rotate"></i></span>
+                                        </div>
+                                        <div class="flip-card-back bg-white dark:bg-lampung-darkcard border-2 border-emerald-600 p-5 flex flex-col justify-between text-left shadow-md">
+                                            <div>
+                                                <h5 class="font-poppins font-bold text-sm text-emerald-600">Sakai Sambayan</h5>
+                                                <p class="text-xs text-gray-600 dark:text-gray-300 mt-2">Semangat tolong-menolong dan gotong royong dalam menyelesaikan masalah bersama di tengah masyarakat.</p>
+                                                <div class="mt-3 text-[11px] font-semibold text-gray-700 dark:text-gray-300">
+                                                    <span class="text-lampung-gold font-bold">Implementasi:</span> Aksi gotong royong membersihkan sungai dan reboisasi desa.
+                                                </div>
+                                            </div>
+                                            <span class="text-[10px] text-right text-gray-400">Klik untuk Kembalikan</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- MODULE 4: ECOPEDAGOGY DALAM SEJARAH LAMPUNG -->
+                        <div id="moduleContent4" class="module-view hidden space-y-6">
+                            <div class="relative rounded-2xl overflow-hidden bg-gradient-to-r from-lampung-green via-emerald-700 to-lampung-blue text-white p-6 sm:p-8">
+                                <div class="relative z-10 space-y-2">
+                                    <span class="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold uppercase">Modul 4</span>
+                                    <h3 class="font-poppins font-extrabold text-2xl sm:text-3xl">Ecopedagogy dalam Sejarah Lampung</h3>
+                                    <p class="text-xs sm:text-sm text-emerald-100 max-w-xl">Eksplorasi situs ekologis penting Lampung dan kaitan sejarah pelestariannya.</p>
+                                </div>
+                                <i class="fa-solid fa-mountain-sun absolute right-4 bottom-2 text-8xl opacity-15 pointer-events-none"></i>
+                            </div>
+
+                            <!-- Grid Site Cards -->
+                            <div class="space-y-4">
+                                <!-- Site 1: Repong Damar -->
+                                <div class="p-5 rounded-2xl border border-gray-200 dark:border-lampung-darkborder bg-white dark:bg-lampung-darkcard hover:border-lampung-green transition">
+                                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-gray-100 dark:border-lampung-darkborder">
+                                        <h4 class="font-poppins font-bold text-lg text-lampung-green dark:text-lampung-green-light flex items-center gap-2">
+                                            <i class="fa-solid fa-tree"></i> Repong Damar (Pesisir Barat)
+                                        </h4>
+                                        <span class="text-xs px-2.5 py-1 rounded-full bg-lampung-green/10 text-lampung-green dark:text-lampung-green-light font-bold">Agroforestri Tradisional</span>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
+                                        <div>
+                                            <span class="font-bold text-gray-900 dark:text-white block">Sejarah & Sejarah Ekologi:</span>
+                                            Sistem hutan buatan masyarakat Krui selama ratusan tahun untuk menghasilkan getah damar mata kucing tanpa merusak struktur hutan alam.
+                                        </div>
+                                        <div>
+                                            <span class="font-bold text-lampung-gold block">Nilai Ekologis & Tantangan:</span>
+                                            Menjadi habitat flora fauna alami sekaligus penyerap karbon masif. Tantangan saat ini adalah alih fungsi lahan sawit dan penurunan harga damar.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Site 2: Way Kambas -->
+                                <div class="p-5 rounded-2xl border border-gray-200 dark:border-lampung-darkborder bg-white dark:bg-lampung-darkcard hover:border-lampung-green transition">
+                                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-gray-100 dark:border-lampung-darkborder">
+                                        <h4 class="font-poppins font-bold text-lg text-lampung-brown dark:text-lampung-gold flex items-center gap-2">
+                                            <i class="fa-solid fa-paw"></i> Taman Nasional Way Kambas (Lampung Timur)
+                                        </h4>
+                                        <span class="text-xs px-2.5 py-1 rounded-full bg-lampung-brown/10 text-lampung-brown dark:text-lampung-gold font-bold">Konservasi Gajah</span>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
+                                        <div>
+                                            <span class="font-bold text-gray-900 dark:text-white block">Sejarah & Ekosistem:</span>
+                                            Ditetapkan sejak era kolonial Belanda (1937) sebagai suaka margasatwa untuk melindungi mamalia besar Sumatra, khususnya Gajah Sumatra (Elephas maximus sumatranus).
+                                        </div>
+                                        <div>
+                                            <span class="font-bold text-lampung-gold block">Konflik & Solusi:</span>
+                                            Tantangan perburuan liar dan konflik lahan dengan warga perbatasan. Solusi melalui patroli kawasan dan edukasi masyarakat penyangga.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- MODULE 5: PENDEKATAN DEEP LEARNING -->
+                        <div id="moduleContent5" class="module-view hidden space-y-6">
+                            <div class="relative rounded-2xl overflow-hidden bg-gradient-to-r from-lampung-blue to-purple-800 text-white p-6 sm:p-8">
+                                <div class="relative z-10 space-y-2">
+                                    <span class="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold uppercase">Modul 5</span>
+                                    <h3 class="font-poppins font-extrabold text-2xl sm:text-3xl">Pendekatan Deep Learning</h3>
+                                    <p class="text-xs sm:text-sm text-blue-100 max-w-xl">3 Elemen Pembelajaran Mendalam: Meaningful, Mindful, dan Joyful Learning.</p>
+                                </div>
+                                <i class="fa-solid fa-graduation-cap absolute right-4 bottom-2 text-8xl opacity-15 pointer-events-none"></i>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div class="p-4 rounded-xl border border-lampung-green bg-lampung-green/5 dark:bg-lampung-green/10">
+                                    <h4 class="font-poppins font-bold text-lampung-green dark:text-lampung-green-light text-base mb-1">🌿 Meaningful Learning (Pembelajaran Bermakna)</h4>
+                                    <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300">Siswa tidak sekadar menghafal fakta, tetapi merefleksikan makna peristiwa sejarah lokal Lampung bagi kehidupan dan masa depan lingkungan tempat tinggal mereka.</p>
+                                </div>
+
+                                <div class="p-4 rounded-xl border border-lampung-gold bg-lampung-gold/5 dark:bg-lampung-gold/10">
+                                    <h4 class="font-poppins font-bold text-lampung-gold text-base mb-1">👁️ Mindful Learning (Pembelajaran Sadar & Kritis)</h4>
+                                    <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300">Siswa dilatih menyadari kaitan ekologis dari keputusan sejarah, seperti bagaimana kebijakan eksploitasi hutan kolonial berdampak pada bencana banjir hari ini.</p>
+                                </div>
+
+                                <div class="p-4 rounded-xl border border-lampung-blue bg-lampung-blue/5 dark:bg-lampung-blue/10">
+                                    <h4 class="font-poppins font-bold text-lampung-blue text-base mb-1">🎉 Joyful Learning (Pembelajaran Menyenangkan)</h4>
+                                    <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300">Menggunakan peta digital interaktif, kuis bersertifikat, studi kasus popup, serta simulasi proyek berbasis aksi nyata.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- MODULE 6: GREEN HISTORY LAMPUNG -->
+                        <div id="moduleContent6" class="module-view hidden space-y-6">
+                            <div class="relative rounded-2xl overflow-hidden bg-gradient-to-r from-emerald-800 to-lampung-green text-white p-6 sm:p-8">
+                                <div class="relative z-10 space-y-2">
+                                    <span class="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold uppercase">Modul 6</span>
+                                    <h3 class="font-poppins font-extrabold text-2xl sm:text-3xl">Green History Lampung</h3>
+                                    <p class="text-xs sm:text-sm text-emerald-100 max-w-xl">Transformasi lingkungan Lampung dari masa kolonial hingga era urbanisasi modern.</p>
+                                </div>
+                                <i class="fa-solid fa-leaf-maple absolute right-4 bottom-2 text-8xl opacity-15 pointer-events-none"></i>
+                            </div>
+
+                            <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                                Green History (Sejarah Hijau) meneliti hubungan timbal balik antara perubahan tutupan lahan hutan di Lampung dengan kebijakan ekonomi-politik. Dari era pembukaan perkebunan kopi era kolonial, program transmigration besar-besaran pertengahan abad ke-20, hingga munculnya gerakan konservasi era modern.
+                            </p>
+                        </div>
+
+                        <!-- MODULE 7: STUDI KASUS -->
+                        <div id="moduleContent7" class="module-view hidden space-y-6">
+                            <div class="relative rounded-2xl overflow-hidden bg-gradient-to-r from-red-800 to-lampung-brown text-white p-6 sm:p-8">
+                                <div class="relative z-10 space-y-2">
+                                    <span class="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold uppercase">Modul 7</span>
+                                    <h3 class="font-poppins font-extrabold text-2xl sm:text-3xl">Studi Kasus: Alih Fungsi Hutan Lampung</h3>
+                                    <p class="text-xs sm:text-sm text-red-100 max-w-xl">Analisis kritis perubahan tutupan hutan dan ancaman bencana ekologis.</p>
+                                </div>
+                                <i class="fa-solid fa-triangle-exclamation absolute right-4 bottom-2 text-8xl opacity-15 pointer-events-none"></i>
+                            </div>
+
+                            <div class="p-6 rounded-2xl bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/40 text-center space-y-4">
+                                <h4 class="font-poppins font-bold text-lg text-red-800 dark:text-red-300">Studi Kasus Alih Fungsi Hutan Taman Nasional Bukit Barisan Selatan (TNBBS)</h4>
+                                <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 max-w-lg mx-auto">
+                                    Klik tombol di bawah untuk membuka Lembar Analisis Studi Kasus interaktif yang mencakup penyebab, dampak lingkungan, kaitan sejarah, dan rekomendasi solusi.
+                                </p>
+                                <button onclick="openCaseStudyModal()" class="px-6 py-3 rounded-xl bg-red-700 hover:bg-red-800 text-white font-poppins font-bold text-xs sm:text-sm shadow-md hover:scale-105 transition-all inline-flex items-center gap-2">
+                                    <i class="fa-solid fa-folder-open"></i>
+                                    <span>Buka Analisis Studi Kasus Interaktif</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- MODULE 8: PROJECT BASED LEARNING -->
+                        <div id="moduleContent8" class="module-view hidden space-y-6">
+                            <div class="relative rounded-2xl overflow-hidden bg-gradient-to-r from-lampung-blue to-teal-800 text-white p-6 sm:p-8">
+                                <div class="relative z-10 space-y-2">
+                                    <span class="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold uppercase">Modul 8</span>
+                                    <h3 class="font-poppins font-extrabold text-2xl sm:text-3xl">Project Based Learning (PBL)</h3>
+                                    <p class="text-xs sm:text-sm text-teal-100 max-w-xl">5 pilihan proyek sejarah lokal & ekologi lengkap dengan rubrik penilaian.</p>
+                                </div>
+                                <i class="fa-solid fa-diagram-project absolute right-4 bottom-2 text-8xl opacity-15 pointer-events-none"></i>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                                <div class="p-4 rounded-xl border border-gray-200 dark:border-lampung-darkborder bg-white dark:bg-lampung-darkcard">
+                                    <h5 class="font-poppins font-bold text-lampung-green dark:text-lampung-green-light">✅ Proyek 1: Peta Sejarah Desa/Pekon</h5>
+                                    <p class="text-gray-600 dark:text-gray-300 mt-1">Pemetaan spasial perubahan lingkungan desa/pekon lokal dalam 30 tahun terakhir.</p>
+                                </div>
+                                <div class="p-4 rounded-xl border border-gray-200 dark:border-lampung-darkborder bg-white dark:bg-lampung-darkcard">
+                                    <h5 class="font-poppins font-bold text-lampung-brown dark:text-lampung-gold">✅ Proyek 2: Video Dokumenter Pendek</h5>
+                                    <p class="text-gray-600 dark:text-gray-300 mt-1">Wawancara dengan tokoh adat atau tetua desa mengenai kearifan ekologis masa lalu.</p>
+                                </div>
+                                <div class="p-4 rounded-xl border border-gray-200 dark:border-lampung-darkborder bg-white dark:bg-lampung-darkcard">
+                                    <h5 class="font-poppins font-bold text-lampung-blue">✅ Proyek 3: Infografis Sejarah Lingkungan</h5>
+                                    <p class="text-gray-600 dark:text-gray-300 mt-1">Desain digital tentang transformasi hutan damar atau kawasan pesisir Lampung.</p>
+                                </div>
+                                <div class="p-4 rounded-xl border border-gray-200 dark:border-lampung-darkborder bg-white dark:bg-lampung-darkcard">
+                                    <h5 class="font-poppins font-bold text-purple-600 dark:text-purple-400">✅ Proyek 4: Kampanye Digital Budaya & Alam</h5>
+                                    <p class="text-gray-600 dark:text-gray-300 mt-1">Poster dan pesan edukasi media sosial bertema pelestarian Piil Pesenggiri dan konservasi.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- MODULE 9: MIND MAP -->
+                        <div id="moduleContent9" class="module-view hidden space-y-6">
+                            <div class="relative rounded-2xl overflow-hidden bg-gradient-to-r from-lampung-green via-lampung-gold to-lampung-brown text-white p-6 sm:p-8">
+                                <div class="relative z-10 space-y-2">
+                                    <span class="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold uppercase">Modul 9</span>
+                                    <h3 class="font-poppins font-extrabold text-2xl sm:text-3xl">Ringkasan & Mind Map Interaktif</h3>
+                                    <p class="text-xs sm:text-sm text-yellow-100 max-w-xl">Sintesis keterhubungan seluruh konsep Sejarah Lokal Lampung & Ecopedagogy.</p>
+                                </div>
+                                <i class="fa-solid fa-sitemap absolute right-4 bottom-2 text-8xl opacity-15 pointer-events-none"></i>
+                            </div>
+
+                            <!-- Visual Mind Map Diagram Representation -->
+                            <div class="p-6 rounded-2xl bg-gray-50 dark:bg-lampung-darkborder/30 border border-gray-200 dark:border-lampung-darkborder flex flex-col items-center space-y-6 text-center">
+                                <div class="px-6 py-3 rounded-2xl bg-lampung-green text-white font-poppins font-bold text-base shadow-md">
+                                    🌳 SEJARAH LOKAL LAMPUNG BERBASIS ECOPEDAGOGY
+                                </div>
+
+                                <div class="w-1 h-8 bg-gray-300 dark:bg-gray-600"></div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
+                                    <div class="p-4 rounded-xl bg-white dark:bg-lampung-darkcard border border-lampung-gold text-xs space-y-1">
+                                        <span class="font-bold text-lampung-gold block">1. Akar Budaya</span>
+                                        <p class="text-gray-600 dark:text-gray-300">Piil Pesenggiri, Repong Damar, Sakai Sambayan.</p>
+                                    </div>
+                                    <div class="p-4 rounded-xl bg-white dark:bg-lampung-darkcard border border-lampung-green text-xs space-y-1">
+                                        <span class="font-bold text-lampung-green dark:text-lampung-green-light block">2. Jejak Peristiwa</span>
+                                        <p class="text-gray-600 dark:text-gray-300">Pugung Raharjo, Banten-Lada, Kolonialisme, Transmigrasi.</p>
+                                    </div>
+                                    <div class="p-4 rounded-xl bg-white dark:bg-lampung-darkcard border border-lampung-blue text-xs space-y-1">
+                                        <span class="font-bold text-lampung-blue block">3. Aksion Ekologis</span>
+                                        <p class="text-gray-600 dark:text-gray-300">Konservasi TNBBS, Way Kambas, PBL, Kampanye Green History.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- TIMELINE SEJARAH INTERAKTIF -->
+    <section id="timeline" class="py-16 bg-white dark:bg-lampung-darkbg border-y border-gray-200 dark:border-lampung-darkborder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-lampung-gold font-bold text-xs uppercase tracking-wider">Garis Waktu Peristiwa</span>
+                <h2 class="font-poppins font-extrabold text-3xl sm:text-4xl text-gray-900 dark:text-white mt-1">
+                    Timeline Sejarah Lokal Lampung
+                </h2>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Geser atau klik periode untuk mengeksplorasi riwayat lintasan sejarah dan dampaknya bagi lingkungan.</p>
+            </div>
+
+            <!-- Horizontal Scrollable Timeline Container -->
+            <div class="overflow-x-auto pb-6">
+                <div class="flex space-x-6 min-w-[900px] px-4">
+                    
+                    <!-- Item 1 -->
+                    <div class="w-72 flex-shrink-0 p-5 rounded-2xl glass-card border-t-4 border-lampung-green shadow-sm space-y-3">
+                        <span class="px-2.5 py-1 bg-lampung-green/10 text-lampung-green dark:text-lampung-green-light font-bold text-xs rounded-full">Prasejarah</span>
+                        <h4 class="font-poppins font-bold text-base text-gray-900 dark:text-white">Pugung Raharjo</h4>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">Situs megalitikum di Sekampung Udik dengan punden berundak dan benteng tanah kuno.</p>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="w-72 flex-shrink-0 p-5 rounded-2xl glass-card border-t-4 border-lampung-brown shadow-sm space-y-3">
+                        <span class="px-2.5 py-1 bg-lampung-brown/10 text-lampung-brown dark:text-lampung-gold font-bold text-xs rounded-full">Abad 16 M</span>
+                        <h4 class="font-poppins font-bold text-base text-gray-900 dark:text-white">Perdagangan Lada Banten</h4>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">Kerja sama dagang lada antara Pangeran Arya Duku dari Banten dengan penyimbang Lampung.</p>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="w-72 flex-shrink-0 p-5 rounded-2xl glass-card border-t-4 border-red-600 shadow-sm space-y-3">
+                        <span class="px-2.5 py-1 bg-red-100 text-red-700 font-bold text-xs rounded-full">Tahun 1905</span>
+                        <h4 class="font-poppins font-bold text-base text-gray-900 dark:text-white">Transmigrasi Gedong Tataan</h4>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">Awal program koloni pertama Belanda mendatangkan warga Jawa ke Lampung untuk membuka lahan pertanian.</p>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="w-72 flex-shrink-0 p-5 rounded-2xl glass-card border-t-4 border-lampung-gold shadow-sm space-y-3">
+                        <span class="px-2.5 py-1 bg-lampung-gold/10 text-lampung-gold font-bold text-xs rounded-full">Tahun 1937</span>
+                        <h4 class="font-poppins font-bold text-base text-gray-900 dark:text-white">Penetapan Suaka Way Kambas</h4>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">Pemerintah Hindia Belanda menetapkan kawasan suaka alam perlindungan satwa gajah dan badak.</p>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="w-72 flex-shrink-0 p-5 rounded-2xl glass-card border-t-4 border-lampung-blue shadow-sm space-y-3">
+                        <span class="px-2.5 py-1 bg-lampung-blue/10 text-lampung-blue font-bold text-xs rounded-full">Era Reformasi & Modern</span>
+                        <h4 class="font-poppins font-bold text-base text-gray-900 dark:text-white">Gerakan Konservasi Digital</h4>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">Penguatan hukum adat Repong Damar dan digitalisasi media sejarah ecopedagogy.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PETA SEJARAH & EKOLOGI LAMPUNG -->
+    <section id="peta" class="py-16 bg-gray-50 dark:bg-lampung-darkbg/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-lampung-green dark:text-lampung-green-light font-bold text-xs uppercase tracking-wider">Eksplorasi Wilayah</span>
+                <h2 class="font-poppins font-extrabold text-3xl sm:text-4xl text-gray-900 dark:text-white mt-1">
+                    Peta Sejarah & Situs Ekologis Lampung
+                </h2>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Klik marker daerah pada peta di bawah ini untuk melihat detail ringkasan sejarah lokal dan nilai ekologisnya.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Map Graphic Container -->
+                <div class="lg:col-span-7 bg-white dark:bg-lampung-darkcard rounded-3xl p-6 shadow-lg border border-gray-200 dark:border-lampung-darkborder relative">
+                    <div class="relative w-full h-80 sm:h-96 bg-emerald-50 dark:bg-lampung-darkborder/30 rounded-2xl flex items-center justify-center overflow-hidden border border-emerald-200 dark:border-lampung-darkborder">
+                        
+                        <!-- Map Background Silhouette -->
+                        <div class="text-emerald-200 dark:text-lampung-darkborder text-9xl font-extrabold select-none opacity-40 flex items-center justify-center">
+                            LAMPUNG
+                        </div>
+
+                        <!-- Interactive Markers -->
+                        <!-- 1. Bandar Lampung -->
+                        <button onclick="showMapDetail('Bandar Lampung', 'Pusat pemerintahan dan pelabuhan bersejarah Teluk Betung pasca erupsi Krakatau 1883.', 'Pesisir perkotaan dan mitigasi bencana pesisir.', 'Kota Bandar Lampung')" class="absolute top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 group">
+                            <span class="w-6 h-6 rounded-full bg-lampung-green text-white flex items-center justify-center text-xs font-bold shadow-lg group-hover:scale-125 transition-transform animate-pulse">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </span>
+                            <span class="text-[10px] font-bold bg-white dark:bg-lampung-darkcard text-gray-800 dark:text-gray-200 px-2 py-0.5 rounded shadow absolute left-full ml-1 whitespace-nowrap">Bandar Lampung</span>
+                        </button>
+
+                        <!-- 2. Way Kambas -->
+                        <button onclick="showMapDetail('Way Kambas (Lampung Timur)', 'Kawasan suaka margasatwa habitat Gajah Sumatra dan Badak Sumatra.', 'Hutan dataran rendah dan pusat konservasi gajah terbesar.', 'Lampung Timur')" class="absolute top-1/2 right-1/4 group">
+                            <span class="w-6 h-6 rounded-full bg-lampung-gold text-white flex items-center justify-center text-xs font-bold shadow-lg group-hover:scale-125 transition-transform animate-bounce">
+                                <i class="fa-solid fa-hippo"></i>
+                            </span>
+                            <span class="text-[10px] font-bold bg-white dark:bg-lampung-darkcard text-gray-800 dark:text-gray-200 px-2 py-0.5 rounded shadow absolute left-full ml-1 whitespace-nowrap">Way Kambas</span>
+                        </button>
+
+                        <!-- 3. Liwa / Lampung Barat -->
+                        <button onclick="showMapDetail('Liwa (Lampung Barat)', 'Pusat pemukiman dataran tinggi pegunungan Bukit Barisan dan komoditas kopi.', 'Ekosistem TNBBS dan perlindungan hulu sungai.', 'Lampung Barat')" class="absolute top-1/4 left-1/4 group">
+                            <span class="w-6 h-6 rounded-full bg-lampung-brown text-white flex items-center justify-center text-xs font-bold shadow-lg group-hover:scale-125 transition-transform">
+                                <i class="fa-solid fa-mountain"></i>
+                            </span>
+                            <span class="text-[10px] font-bold bg-white dark:bg-lampung-darkcard text-gray-800 dark:text-gray-200 px-2 py-0.5 rounded shadow absolute left-full ml-1 whitespace-nowrap">Liwa</span>
+                        </button>
+
+                        <!-- 4. Krui / Pesisir Barat -->
+                        <button onclick="showMapDetail('Krui (Pesisir Barat)', 'Wilayah pelabuhan kuno tempat berkembangnya kearifan Repong Damar.', 'Kawasan Hutan Damar Mata Kucing bernilai konservasi tinggi.', 'Pesisir Barat')" class="absolute top-2/4 left-1/6 group">
+                            <span class="w-6 h-6 rounded-full bg-lampung-blue text-white flex items-center justify-center text-xs font-bold shadow-lg group-hover:scale-125 transition-transform">
+                                <i class="fa-solid fa-tree"></i>
+                            </span>
+                            <span class="text-[10px] font-bold bg-white dark:bg-lampung-darkcard text-gray-800 dark:text-gray-200 px-2 py-0.5 rounded shadow absolute right-full mr-1 whitespace-nowrap">Krui</span>
+                        </button>
+
+                        <!-- 5. Kalianda / Lampung Selatan -->
+                        <button onclick="showMapDetail('Kalianda (Lampung Selatan)', 'Gerbang selatan Lampung berdekatan dengan Gunung Anak Krakatau.', 'Mitigasi kebencanaan erupsi dan pelestarian pesisir.', 'Lampung Selatan')" class="absolute bottom-6 right-1/3 group">
+                            <span class="w-6 h-6 rounded-full bg-red-600 text-white flex items-center justify-center text-xs font-bold shadow-lg group-hover:scale-125 transition-transform">
+                                <i class="fa-solid fa-volcano"></i>
+                            </span>
+                            <span class="text-[10px] font-bold bg-white dark:bg-lampung-darkcard text-gray-800 dark:text-gray-200 px-2 py-0.5 rounded shadow absolute left-full ml-1 whitespace-nowrap">Kalianda</span>
+                        </button>
+
+                    </div>
+                </div>
+
+                <!-- Map Info Sidebar Display Card -->
+                <div class="lg:col-span-5 bg-white dark:bg-lampung-darkcard rounded-3xl p-6 shadow-lg border border-gray-200 dark:border-lampung-darkborder space-y-4">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-lampung-gold text-lg"></i>
+                        <h3 class="font-poppins font-bold text-lg text-gray-900 dark:text-white">Detail Lokasi Terpilih</h3>
+                    </div>
+
+                    <div id="mapDetailBox" class="p-5 rounded-2xl bg-gray-50 dark:bg-lampung-darkborder/30 space-y-3">
+                        <h4 id="mapTitle" class="font-poppins font-bold text-lg text-lampung-green dark:text-lampung-green-light">Klik Salah Satu Marker Di Peta</h4>
+                        <p id="mapHistory" class="text-xs sm:text-sm text-gray-600 dark:text-gray-300">Pilih titik marker pada peta Provinsi Lampung di sebelah kiri untuk menampilkan rincian nilai sejarah dan ekologinya.</p>
+                        <div class="pt-2 border-t border-gray-200 dark:border-lampung-darkborder">
+                            <span class="text-[11px] font-bold text-lampung-gold block">Nilai Ekologis & Konservasi:</span>
+                            <p id="mapEcoValue" class="text-xs text-gray-500 dark:text-gray-400 font-medium">-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIDEO PEMBELAJARAN -->
+    <section id="video" class="py-16 bg-white dark:bg-lampung-darkbg border-y border-gray-200 dark:border-lampung-darkborder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-lampung-blue font-bold text-xs uppercase tracking-wider">Media Audio-Visual</span>
+                <h2 class="font-poppins font-extrabold text-3xl sm:text-4xl text-gray-900 dark:text-white mt-1">
+                    Galeri Video Pembelajaran
+                </h2>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Saksikan tayangan dokumenter dan pembelajaran interaktif sejarah serta konservasi Lampung.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Video 1 Placeholder Container -->
+                <div class="bg-white dark:bg-lampung-darkcard rounded-2xl overflow-hidden shadow-md border border-gray-200 dark:border-lampung-darkborder">
+                    <div class="relative aspect-video bg-gray-900 flex items-center justify-center">
+                        <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" title="Video Sejarah Lampung" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <span class="text-[10px] font-bold px-2 py-0.5 bg-lampung-green/10 text-lampung-green dark:text-lampung-green-light rounded">Dokumenter Sejarah</span>
+                        <h4 class="font-poppins font-bold text-base text-gray-900 dark:text-white">Kearifan Repong Damar Krui Lampung</h4>
+                        <p class="text-xs text-gray-600 dark:text-gray-300">Penjelasan mengenai sejarah pengelolaan hutan damar berkelanjutan oleh masyarakat adat Pesisir Barat Lampung.</p>
+                    </div>
+                </div>
+
+                <!-- Video 2 Placeholder Container -->
+                <div class="bg-white dark:bg-lampung-darkcard rounded-2xl overflow-hidden shadow-md border border-gray-200 dark:border-lampung-darkborder">
+                    <div class="relative aspect-video bg-gray-900 flex items-center justify-center">
+                        <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" title="Video Konservasi Gajah Way Kambas" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <span class="text-[10px] font-bold px-2 py-0.5 bg-lampung-gold/10 text-lampung-gold rounded">Konservasi Alam</span>
+                        <h4 class="font-poppins font-bold text-base text-gray-900 dark:text-white">Jejak Konservasi Taman Nasional Way Kambas</h4>
+                        <p class="text-xs text-gray-600 dark:text-gray-300">Menelusuri riwayat perlindungan Gajah Sumatra serta peran pentingnya dalam keanekaragaman hayati.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AKTIVITAS SISWA -->
+    <section id="aktivitas" class="py-16 bg-gray-50 dark:bg-lampung-darkbg/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-lampung-green dark:text-lampung-green-light font-bold text-xs uppercase tracking-wider">Aktivitas Kolaboratif</span>
+                <h2 class="font-poppins font-extrabold text-3xl sm:text-4xl text-gray-900 dark:text-white mt-1">
+                    Aktivitas Pembelajaran Siswa
+                </h2>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Rangkaian ragam aktivitas belajar mandiri dan kelompok untuk memperdalam pemahaman ecopedagogy.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Activity 1 -->
+                <div class="p-6 rounded-2xl bg-white dark:bg-lampung-darkcard shadow-md border border-gray-200 dark:border-lampung-darkborder space-y-3">
+                    <div class="w-12 h-12 rounded-xl bg-lampung-green/10 text-lampung-green dark:text-lampung-green-light flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-binoculars"></i>
+                    </div>
+                    <h4 class="font-poppins font-bold text-lg text-gray-900 dark:text-white">1. Observasi Lingkungan Sekitar</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">Amatilah kondisi sungai, hutan, atau kawasan pemukiman di sekitar tempat tinggalmu dan identifikasi dampaknya secara historis.</p>
+                </div>
+
+                <!-- Activity 2 -->
+                <div class="p-6 rounded-2xl bg-white dark:bg-lampung-darkcard shadow-md border border-gray-200 dark:border-lampung-darkborder space-y-3">
+                    <div class="w-12 h-12 rounded-xl bg-lampung-gold/10 text-lampung-gold flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                    <h4 class="font-poppins font-bold text-lg text-gray-900 dark:text-white">2. Diskusi Kelompok Mindful</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">Diskusikan bersama 4-5 teman kelompok mengenai dilema alih fungsi hutan TNBBS dengan mempertimbangkan aspek ekonomi dan konservasi.</p>
+                </div>
+
+                <!-- Activity 3 -->
+                <div class="p-6 rounded-2xl bg-white dark:bg-lampung-darkcard shadow-md border border-gray-200 dark:border-lampung-darkborder space-y-3">
+                    <div class="w-12 h-12 rounded-xl bg-lampung-blue/10 text-lampung-blue flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-route"></i>
+                    </div>
+                    <h4 class="font-poppins font-bold text-lg text-gray-900 dark:text-white">3. Outdoor Learning & Jejak Sejarah</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">Kunjungi situs sejarah terdekat seperti Situs Pugung Raharjo atau Museum Lampung dan buatlah laporan refleksi singkat.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KUIS INTERAKTIF (MINIMAL 15 SOAL MULTI-TIPE) -->
+    <section id="kuis" class="py-16 bg-white dark:bg-lampung-darkbg border-y border-gray-200 dark:border-lampung-darkborder">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <span class="px-3 py-1 bg-lampung-gold text-white text-xs font-extrabold rounded-full uppercase tracking-wider">Evaluasi Evaluatif</span>
+                <h2 class="font-poppins font-extrabold text-3xl sm:text-4xl text-gray-900 dark:text-white mt-2">
+                    Kuis Interaktif Sejarah & Ecopedagogy
+                </h2>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Uji pemahamanmu dengan 15 pertanyaan interaktif. Raih nilai minimal 80 untuk mengunduh Sertifikat Kelulusan!</p>
+            </div>
+
+            <!-- Quiz Card Panel -->
+            <div class="bg-white dark:bg-lampung-darkcard rounded-3xl p-6 sm:p-10 shadow-xl border border-gray-200 dark:border-lampung-darkborder relative">
+                
+                <!-- Quiz Progress Bar Header -->
+                <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-lampung-darkborder mb-6">
+                    <span id="quizQuestionTracker" class="font-poppins font-bold text-sm text-lampung-green dark:text-lampung-green-light">Pertanyaan 1 dari 15</span>
+                    <span id="quizScoreTracker" class="font-poppins font-extrabold text-sm text-lampung-gold">Skor: 0</span>
+                </div>
+
+                <!-- Question Text -->
+                <div id="quizContainer">
+                    <h3 id="quizQuestionText" class="font-poppins font-bold text-lg sm:text-xl text-gray-900 dark:text-white mb-6">
+                        Memuat Pertanyaan...
+                    </h3>
+
+                    <!-- Options Container -->
+                    <div id="quizOptionsContainer" class="space-y-3 mb-8">
+                        <!-- Options dynamically injected here -->
+                    </div>
+
+                    <!-- Navigation Action Buttons -->
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-lampung-darkborder">
+                        <button id="prevQuizBtn" onclick="prevQuestion()" class="px-5 py-2.5 rounded-xl border border-gray-300 dark:border-lampung-darkborder text-xs sm:text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition hidden">
+                            <i class="fa-solid fa-arrow-left mr-1"></i> Sebelumnya
+                        </button>
+                        
+                        <button id="nextQuizBtn" onclick="nextQuestion()" class="ml-auto px-6 py-2.5 rounded-xl bg-lampung-green text-white text-xs sm:text-sm font-bold hover:bg-lampung-green-dark shadow-md transition">
+                            Selanjutnya <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quiz Result Panel (Hidden by default) -->
+                <div id="quizResultPanel" class="hidden text-center space-y-6 py-6">
+                    <div class="w-20 h-20 rounded-full bg-lampung-gold/20 text-lampung-gold mx-auto flex items-center justify-center text-4xl animate-bounce">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-poppins font-extrabold text-2xl text-gray-900 dark:text-white">Kuis Selesai!</h3>
+                        <p id="quizFinalScoreText" class="text-lg font-bold text-lampung-green dark:text-lampung-green-light mt-1">Skor Anda: 0 / 100</p>
+                        <p id="quizFeedbackMessage" class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 max-w-md mx-auto mt-2"></p>
+                    </div>
+
+                    <!-- Certificate Button (Visible if Score >= 80) -->
+                    <div id="certificateContainer" class="hidden pt-2">
+                        <button onclick="openCertificateModal()" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-lampung-gold to-yellow-600 text-white font-poppins font-bold text-sm shadow-lg hover:scale-105 transition-transform flex items-center gap-2 mx-auto">
+                            <i class="fa-solid fa-award text-lg"></i>
+                            <span>Buka & Cetak Sertifikat Kelulusan</span>
+                        </button>
+                    </div>
+
+                    <button onclick="resetQuiz()" class="px-6 py-2.5 bg-gray-200 dark:bg-lampung-darkborder text-gray-800 dark:text-gray-200 rounded-xl font-bold text-xs hover:bg-gray-300 transition">
+                        Ulangi Kuis
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- JURNAL REFLEKSI SISWA -->
+    <section id="refleksi" class="py-16 bg-gray-50 dark:bg-lampung-darkbg/50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <span class="text-lampung-brown dark:text-lampung-gold font-bold text-xs uppercase tracking-wider">Refleksi Bermakna</span>
+                <h2 class="font-poppins font-extrabold text-3xl sm:text-4xl text-gray-900 dark:text-white mt-1">
+                    Jurnal Refleksi Siswa (Mindful Journal)
+                </h2>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Tuliskan pemikiran dan komitmen reflektifmu. Catatan tersimpan secara otomatis di peramban Anda.</p>
+            </div>
+
+            <div class="bg-white dark:bg-lampung-darkcard rounded-3xl p-6 sm:p-8 shadow-md border border-gray-200 dark:border-lampung-darkborder space-y-6">
+                <!-- Prompt 1 -->
+                <div class="space-y-2">
+                    <label class="block font-poppins font-bold text-sm text-gray-900 dark:text-white">
+                        1. Apa pelajaran penting yang kamu dapatkan hari ini tentang Sejarah Lokal Lampung & Ecopedagogy?
+                    </label>
+                    <textarea id="refleksiPrompt1" rows="3" placeholder="Tuliskan refleksi di sini..." class="w-full p-3 rounded-xl border border-gray-300 dark:border-lampung-darkborder bg-gray-50 dark:bg-lampung-darkborder/30 text-xs sm:text-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-lampung-green"></textarea>
+                </div>
+
+                <!-- Prompt 2 -->
+                <div class="space-y-2">
+                    <label class="block font-poppins font-bold text-sm text-gray-900 dark:text-white">
+                        2. Bagaimana kaitan antara peristiwa sejarah Lampung dengan kondisi lingkungan di daerahmu saat ini?
+                    </label>
+                    <textarea id="refleksiPrompt2" rows="3" placeholder="Tuliskan refleksi di sini..." class="w-full p-3 rounded-xl border border-gray-300 dark:border-lampung-darkborder bg-gray-50 dark:bg-lampung-darkborder/30 text-xs sm:text-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-lampung-green"></textarea>
+                </div>
+
+                <!-- Prompt 3 -->
+                <div class="space-y-2">
+                    <label class="block font-poppins font-bold text-sm text-gray-900 dark:text-white">
+                        3. Apa aksi nyata yang dapat kamu lakukan untuk menjaga warisan sejarah dan kelestarian alam Lampung?
+                    </label>
+                    <textarea id="refleksiPrompt3" rows="3" placeholder="Tuliskan refleksi di sini..." class="w-full p-3 rounded-xl border border-gray-300 dark:border-lampung-darkborder bg-gray-50 dark:bg-lampung-darkborder/30 text-xs sm:text-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-lampung-green"></textarea>
+                </div>
+
+                <div class="flex items-center justify-between pt-2">
+                    <span id="reflectionSaveStatus" class="text-xs font-bold text-lampung-green dark:text-lampung-green-light hidden">
+                        <i class="fa-solid fa-check-circle"></i> Refleksi Tersimpan!
+                    </span>
+                    <button onclick="saveReflectionNotes()" class="ml-auto px-6 py-3 rounded-xl bg-lampung-green hover:bg-lampung-green-dark text-white font-poppins font-bold text-xs sm:text-sm shadow-md transition">
+                        Simpan Jurnal Refleksi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REFERENSI & DAFTAR PUSTAKA -->
+    <section id="referensi" class="py-16 bg-white dark:bg-lampung-darkbg border-y border-gray-200 dark:border-lampung-darkborder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-lampung-gold font-bold text-xs uppercase tracking-wider">Sumber Ilmiah</span>
+                <h2 class="font-poppins font-extrabold text-3xl sm:text-4xl text-gray-900 dark:text-white mt-1">
+                    Referensi & Pustaka Rujukan
+                </h2>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Daftar literatur pendukung pengembangan materi Sejarah Lokal Lampung dan Ecopedagogy.</p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex justify-center gap-2 mb-8">
+                <button onclick="filterRef('all')" class="ref-filter-btn active px-4 py-1.5 rounded-full text-xs font-bold bg-lampung-green text-white">Semua</button>
+                <button onclick="filterRef('buku')" class="ref-filter-btn px-4 py-1.5 rounded-full text-xs font-bold bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300">Buku</button>
+                <button onclick="filterRef('jurnal')" class="ref-filter-btn px-4 py-1.5 rounded-full text-xs font-bold bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300">Jurnal</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="refCardGrid">
+                <!-- Ref 1 -->
+                <div class="ref-card buku p-5 rounded-2xl glass-card border border-gray-200 dark:border-lampung-darkborder space-y-2">
+                    <span class="text-[10px] font-bold px-2 py-0.5 bg-lampung-green/10 text-lampung-green dark:text-lampung-green-light rounded">Buku Sejarah</span>
+                    <h4 class="font-poppins font-bold text-sm text-gray-900 dark:text-white">Sejarah Kebudayaan Lampung</h4>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Dinas Pendidikan dan Kebudayaan Provinsi Lampung (2018).</p>
+                </div>
+
+                <!-- Ref 2 -->
+                <div class="ref-card jurnal p-5 rounded-2xl glass-card border border-gray-200 dark:border-lampung-darkborder space-y-2">
+                    <span class="text-[10px] font-bold px-2 py-0.5 bg-lampung-gold/10 text-lampung-gold rounded">Jurnal Pendidikan</span>
+                    <h4 class="font-poppins font-bold text-sm text-gray-900 dark:text-white">Integrasi Ecopedagogy dalam Pembelajaran Sejarah</h4>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Jurnal Pendidikan Sejarah & Ekologi Nusantara (2022).</p>
+                </div>
+
+                <!-- Ref 3 -->
+                <div class="ref-card buku p-5 rounded-2xl glass-card border border-gray-200 dark:border-lampung-darkborder space-y-2">
+                    <span class="text-[10px] font-bold px-2 py-0.5 bg-lampung-blue/10 text-lampung-blue rounded">Buku Agroforestri</span>
+                    <h4 class="font-poppins font-bold text-sm text-gray-900 dark:text-white">Manusia dan Hutan Damar Krui</h4>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Studi Konservasi Budaya Pesisir Barat (2020).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROFIL PENGEMBANG -->
+    <section id="profil" class="py-16 bg-gray-50 dark:bg-lampung-darkbg/50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-lampung-darkcard rounded-3xl p-8 sm:p-10 shadow-xl border border-gray-200 dark:border-lampung-darkborder flex flex-col md:flex-row items-center gap-8">
+                <!-- Avatar Placeholder -->
+                <div class="w-32 h-32 rounded-3xl bg-gradient-to-br from-lampung-green via-lampung-gold to-lampung-brown flex items-center justify-center text-white text-5xl font-bold shadow-lg flex-shrink-0">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+
+                <div class="space-y-3 text-center md:text-left">
+                    <span class="px-3 py-1 bg-lampung-green/10 text-lampung-green dark:text-lampung-green-light text-xs font-bold rounded-full">Tim Pengembang Media</span>
+                    <h3 class="font-poppins font-extrabold text-2xl text-gray-900 dark:text-white">Pengembang Media Ecopedagogy Lampung</h3>
+                    <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                        Dikembangkan oleh Tim Teknologi Pendidikan Sejarah bekerja sama dengan akademisi dan praktisi pendidikan sejarah lokal Lampung.
+                    </p>
+                    <div class="pt-2 flex flex-wrap justify-center md:justify-start gap-4 text-xs font-semibold text-gray-500 dark:text-gray-400">
+                        <span><i class="fa-solid fa-university text-lampung-gold mr-1"></i> Pendidikan Sejarah</span>
+                        <span><i class="fa-solid fa-envelope text-lampung-green mr-1"></i> pengembang@ecohistlampung.id</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL 1: STUDI KASUS POPUP -->
+    <div id="caseStudyModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white dark:bg-lampung-darkcard max-w-2xl w-full rounded-3xl p-6 sm:p-8 shadow-2xl border border-gray-200 dark:border-lampung-darkborder max-h-[90vh] overflow-y-auto space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-gray-200 dark:border-lampung-darkborder">
+                <h3 class="font-poppins font-bold text-lg text-red-700 dark:text-red-400 flex items-center gap-2">
+                    <i class="fa-solid fa-file-triangle"></i> Analisis Studi Kasus Alih Fungsi Hutan
+                </h3>
+                <button onclick="closeCaseStudyModal()" class="text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
+            </div>
+
+            <div class="space-y-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300">
+                <div class="p-3 bg-red-50 dark:bg-red-950/30 rounded-xl">
+                    <span class="font-bold text-red-800 dark:text-red-300 block">Penyebab Utama:</span>
+                    Perluasan kawasan perkebunan, pemukiman transmigrasi ilegal, serta kebutuhan kayu tambang.
+                </div>
+                <div class="p-3 bg-amber-50 dark:bg-amber-950/30 rounded-xl">
+                    <span class="font-bold text-amber-800 dark:text-amber-300 block">Dampak Ekologis & Sosial:</span>
+                    Peningkatan bencana banjir bandang, erosi tanah hulu, serta hilangnya koridor migrasi satwa gajah.
+                </div>
+                <div class="p-3 bg-green-50 dark:bg-green-950/30 rounded-xl">
+                    <span class="font-bold text-green-800 dark:text-green-300 block">Solusi Berbasis Ecopedagogy:</span>
+                    Pemberdayaan masyarakat desa penyangga hutan dengan skema agroforestri dan edukasi sejarah pelestarian lokal.
+                </div>
+            </div>
+
+            <div class="pt-3 text-right">
+                <button onclick="closeCaseStudyModal()" class="px-5 py-2 rounded-xl bg-gray-200 dark:bg-lampung-darkborder text-gray-800 dark:text-gray-200 text-xs font-bold">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: SERTIFIKAT KELULUSAN (PRINTABLE) -->
+    <div id="certificateModal" class="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white text-gray-900 max-w-3xl w-full rounded-3xl p-8 shadow-2xl border-4 border-lampung-gold space-y-6 relative" id="printableCertificate">
+            <!-- Certificate Border Frame -->
+            <div class="border-2 border-lampung-green p-6 text-center space-y-4 rounded-2xl relative overflow-hidden">
+                <i class="fa-solid fa-crown text-lampung-gold text-5xl"></i>
+                <h2 class="font-poppins font-extrabold text-3xl tracking-wide text-lampung-green-dark">SERTIFIKAT KELULUSAN</h2>
+                <p class="text-xs font-semibold text-gray-500 uppercase tracking-widest">Diberikan Kepada Pembelajar Kritis</p>
+
+                <div class="py-2">
+                    <span class="font-poppins font-bold text-2xl text-lampung-brown border-b-2 border-lampung-gold px-8 py-1 inline-block">Siswa / Mahasiswa Hebat</span>
+                </div>
+
+                <p class="text-xs sm:text-sm text-gray-600 max-w-lg mx-auto leading-relaxed">
+                    Atas keberhasilan dan ketuntasan dalam mempelajari seluruh modul serta meraih nilai memuaskan pada Kuis Evaluasi Media Pembelajaran Interaktif <br>
+                    <strong class="text-lampung-green">"Sejarah Lokal Lampung Berbasis Ecopedagogy & Deep Learning"</strong>.
+                </p>
+
+                <div class="flex justify-between items-end pt-8 px-4 text-xs font-bold text-gray-700">
+                    <div>
+                        <span class="block border-b border-gray-400 pb-1">Tanggal Kelulusan</span>
+                        <span class="text-[10px] text-gray-500">Agustus 2026</span>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-certificate text-lampung-gold text-3xl block mb-1"></i>
+                        <span>EcoHist Lampung</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-2 print:hidden">
+                <button onclick="window.print()" class="px-6 py-2.5 rounded-xl bg-lampung-green text-white text-xs font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-print"></i> Cetak / Simpan PDF
+                </button>
+                <button onclick="closeCertificateModal()" class="px-5 py-2.5 rounded-xl bg-gray-200 text-gray-800 text-xs font-bold">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: BOOKMARKS DRAWER -->
+    <div id="bookmarkDrawer" class="fixed inset-y-0 right-0 max-w-xs w-full bg-white dark:bg-lampung-darkcard shadow-2xl z-50 transform translate-x-full transition-transform duration-300 p-6 space-y-4 border-l border-gray-200 dark:border-lampung-darkborder">
+        <div class="flex items-center justify-between pb-3 border-b border-gray-200 dark:border-lampung-darkborder">
+            <h3 class="font-poppins font-bold text-base text-gray-900 dark:text-white flex items-center gap-2">
+                <i class="fa-solid fa-bookmark text-lampung-gold"></i> Bookmark Saya
+            </h3>
+            <button onclick="toggleBookmarkDrawer()" class="text-gray-400 hover:text-gray-600 text-lg font-bold">&times;</button>
+        </div>
+
+        <div id="bookmarkListContainer" class="space-y-2 text-xs">
+            <p class="text-gray-400 italic">Belum ada modul yang disimpan.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-lampung-darkbg text-white py-12 border-t border-lampung-darkborder mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+            <div class="flex items-center justify-center gap-2 font-poppins font-extrabold text-xl text-lampung-green-light">
+                <i class="fa-solid fa-leaf text-lampung-gold"></i> EcoHist Lampung
+            </div>
+            <p class="text-xs text-gray-400 max-w-md mx-auto">Media Pembelajaran Digital Sejarah Lokal Lampung Berbasis Ecopedagogy dengan Pendekatan Deep Learning.</p>
+            <p class="text-[11px] text-gray-500">&copy; 2026 Sejarah Lokal Lampung. Hak Cipta Dilindungi Undang-Undang.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Application State Management
+        let currentModule = 1;
+        let bookmarkedModules = JSON.parse(localStorage.getItem('ecoHist_bookmarks')) || [];
+        let completedModules = JSON.parse(localStorage.getItem('ecoHist_completed')) || [];
+        let currentQuizIndex = 0;
+        let quizScore = 0;
+        let userQuizAnswers = {};
+
+        // Quiz Questions Data Structure (15 Comprehensive Multi-Type Questions)
+        const quizData = [
+            {
+                q: "1. Apa pengertian dasar dari sejarah lokal?",
+                options: [
+                    "A. Sejarah perang dunia yang terjadi di benua Eropa",
+                    "B. Kisah peristiwa masa lalu dalam lingkup geografis terbatas yang berdampak pada masyarakat setempat",
+                    "C. Silsilah silsilah kerajaan kuno di kawasan Timur Tengah",
+                    "D. Catatan kronologi penjelajahan samudra oleh armada Spanyol"
+                ],
+                answer: 1
+            },
+            {
+                q: "2. Pendekatan Ecopedagogy dalam pembelajaran sejarah berfokus pada...",
+                options: [
+                    "A. Menghafal seluruh nama gubernur jenderal Belanda",
+                    "B. Menghubungkan peristiwa sejarah dengan kesadaran dan pelestarian lingkungan ekologis",
+                    "C. Menghitung jumlah benteng kolonial di Pulau Sumatra",
+                    "D. Mengabaikan aspek kebudayaan lokal"
+                ],
+                answer: 1
+            },
+            {
+                q: "3. Situs Megalitikum Pugung Raharjo terletak di kabupaten...",
+                options: ["A. Pesisir Barat", "B. Lampung Timur", "C. Lampung Barat", "D. Tulang Bawang"],
+                answer: 1
+            },
+            {
+                q: "4. Sistem agroforestri buatan masyarakat Krui untuk menghasilkan getah damar tanpa merusak hutan dinamakan...",
+                options: ["A. Piil Pesenggiri", "B. Repong Damar", "C. Sakai Sambayan", "D. Nemui Nyimah"],
+                answer: 1
+            },
+            {
+                q: "5. Falsafah moral utama masyarakat Lampung yang menekankan kehormatan dan martabat hidup adalah...",
+                options: ["A. Piil Pesenggiri", "B. Nengah Nyappur", "C. Sakai Sambayan", "D. Bejuluk Beadok"],
+                answer: 0
+            },
+            {
+                q: "6. Nilai kearifan lokal 'Sakai Sambayan' mencerminkan budaya...",
+                options: ["A. Persaingan dagang", "B. Gotong royong dan tolong-menolong", "C. Menutup diri", "D. Kesenian tari"],
+                answer: 1
+            },
+            {
+                q: "7. Taman Nasional Way Kambas secara khusus menjadi pusat konservasi bagi mamalia langka...",
+                options: ["A. Orangutan", "B. Gajah Sumatra", "C. Harimau Jawa", "D. Anoa"],
+                answer: 1
+            },
+            {
+                q: "8. Komoditas rempah utama yang menjadi daya tarik Lampung dalam perdagangan dunia abad ke-16-18 adalah...",
+                options: ["A. Lada Hitam", "B. Cengkeh", "C. Kayu Manis", "D. Pala"],
+                answer: 0
+            },
+            {
+                q: "9. Tiga elemen utama dalam pendekatan Deep Learning adalah...",
+                options: [
+                    "A. Fast, Hard, & Boring Learning",
+                    "B. Meaningful, Mindful, & Joyful Learning",
+                    "C. Reading, Writing, & Memorizing",
+                    "D. Online, Offline, & Hybrid"
+                ],
+                answer: 1
+            },
+            {
+                q: "10. Program kolonisasi transmigrasi pertama era Belanda di Lampung dimulai pada tahun 1905 berpusat di...",
+                options: ["A. Gedong Tataan", "B. Metro", "C. Liwa", "D. Krui"],
+                answer: 0
+            },
+            {
+                q: "11. Benar atau Salah: Sikap 'Nemui Nyimah' mengajarkan masyarakat Lampung untuk bersikap ramah dan pemurah kepada tamu.",
+                options: ["A. Benar", "B. Salah"],
+                answer: 0
+            },
+            {
+                q: "12. Dampak ekologis utama dari alih fungsi hutan secara tak terkendali di daerah hulu Lampung adalah...",
+                options: ["A. Bertambahnya keanekaragaman satwa", "B. Bencana banjir bandang dan erosi tanah", "C. Penurunan suhu udara", "D. Suburnya hutan alam"],
+                answer: 1
+            },
+            {
+                q: "13. Nilai kearifan 'Nengah Nyappur' mendidik siswa untuk...",
+                options: ["A. Berperilaku individualis", "B. Membuka diri dalam pergaulan positif dan berwawasan luas", "C. Menolak perbedaan pendapat", "D. Acuh tak acuh"],
+                answer: 1
+            },
+            {
+                q: "14. Pembelajaran 'Mindful' dalam sejarah mengajak siswa untuk...",
+                options: ["A. Berpikir kritis dan menyadari kaitan sebab-akibat peristiwa sejarah dengan alam", "B. Menghafal tanpa memahami", "C. Tidur saat pelajaran", "D. Hanya membaca judul"],
+                answer: 0
+            },
+            {
+                q: "15. Kawasan Taman Nasional Bukit Barisan Selatan (TNBBS) membentang melintasi wilayah...",
+                options: ["A. Lampung Barat dan Pesisir Barat", "B. Bandar Lampung saja", "C. Kota Metro", "D. Lampung Utara saja"],
+                answer: 0
+            }
+        ];
+
+        window.addEventListener('load', () => {
+            // Hide loading overlay
+            setTimeout(() => {
+                const loader = document.getElementById('loadingScreen');
+                if (loader) {
+                    loader.classList.add('opacity-0');
+                    setTimeout(() => loader.remove(), 500);
+                }
+            }, 600);
+
+            // Initialize App Components
+            initScrollProgress();
+            initDarkMode();
+            renderQuizQuestion();
+            loadReflectionNotes();
+            updateBookmarkBadge();
+            updateOverallProgressBar();
+            setupSearch();
+        });
+
+        // Scroll Progress Bar
+        function initScrollProgress() {
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById('scrollProgressBar').style.width = scrolled + '%';
+            });
+        }
+
+        // Dark Mode Controller
+        function initDarkMode() {
+            const darkModeBtn = document.getElementById('darkModeBtn');
+            const darkModeIcon = document.getElementById('darkModeIcon');
+            
+            if (localStorage.getItem('ecoHist_theme') === 'dark' || 
+                (!('ecoHist_theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                darkModeIcon.className = 'fa-solid fa-sun text-base';
+            }
+
+            darkModeBtn.addEventListener('click', () => {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('ecoHist_theme', 'light');
+                    darkModeIcon.className = 'fa-solid fa-moon text-base';
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('ecoHist_theme', 'dark');
+                    darkModeIcon.className = 'fa-solid fa-sun text-base';
+                }
+            });
+
+            // Mobile Menu Toggle
+            document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.toggle('hidden');
+            });
+
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    document.getElementById('mobileMenu').classList.add('hidden');
+                });
+            });
+        }
+
+        // Switch Active Module
+        function switchModule(modNum) {
+            currentModule = modNum;
+
+            // Update Tab UI
+            document.querySelectorAll('.mod-tab-btn').forEach((btn, idx) => {
+                if (idx + 1 === modNum) {
+                    btn.className = 'mod-tab-btn active w-full text-left p-3 rounded-xl font-medium text-xs sm:text-sm flex items-center justify-between transition bg-lampung-green text-white shadow-sm';
+                } else {
+                    btn.className = 'mod-tab-btn w-full text-left p-3 rounded-xl font-medium text-xs sm:text-sm flex items-center justify-between transition text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-lampung-darkborder';
+                }
+            });
+
+            // Hide all module content views
+            document.querySelectorAll('.module-view').forEach(view => view.classList.add('hidden'));
+            
+            // Show selected module content view
+            const target = document.getElementById(`moduleContent${modNum}`);
+            if (target) target.classList.remove('hidden');
+
+            // Update Breadcrumb & Controls
+            const titles = [
+                "Modul 1: Pengantar Sejarah Lokal", "Modul 2: Perjalanan Sejarah Lampung", 
+                "Modul 3: Kearifan Lokal Lampung", "Modul 4: Ecopedagogy Sejarah",
+                "Modul 5: Pendekatan Deep Learning", "Modul 6: Green History Lampung",
+                "Modul 7: Studi Kasus Alih Fungsi", "Modul 8: Project Based Learning",
+                "Modul 9: Ringkasan & Mind Map"
+            ];
+            document.getElementById('breadcrumbModuleTitle').innerText = titles[modNum - 1];
+
+            updateBookmarkBtnUI();
+            updateCompleteBtnUI();
+        }
+
+        // Bookmark Logic
+        function toggleBookmarkCurrentModule() {
+            const index = bookmarkedModules.indexOf(currentModule);
+            if (index > -1) {
+                bookmarkedModules.splice(index, 1);
+            } else {
+                bookmarkedModules.push(currentModule);
+            }
+            localStorage.setItem('ecoHist_bookmarks', JSON.stringify(bookmarkedModules));
+            updateBookmarkBtnUI();
+            updateBookmarkBadge();
+            renderBookmarkDrawerItems();
+        }
+
+        function updateBookmarkBtnUI() {
+            const isBookmarked = bookmarkedModules.includes(currentModule);
+            const icon = document.getElementById('bookmarkIcon');
+            const text = document.getElementById('bookmarkText');
+            if (isBookmarked) {
+                icon.className = 'fa-solid fa-bookmark text-lampung-gold';
+                text.innerText = 'Tersimpan';
+            } else {
+                icon.className = 'fa-regular fa-bookmark';
+                text.innerText = 'Simpan Bookmark';
+            }
+        }
+
+        function updateBookmarkBadge() {
+            document.getElementById('bookmarkBadge').innerText = bookmarkedModules.length;
+        }
+
+        // Bookmark Drawer Toggle
+        document.getElementById('bookmarkDrawerBtn').addEventListener('click', toggleBookmarkDrawer);
+        function toggleBookmarkDrawer() {
+            const drawer = document.getElementById('bookmarkDrawer');
+            drawer.classList.toggle('translate-x-full');
+            renderBookmarkDrawerItems();
+        }
+
+        function renderBookmarkDrawerItems() {
+            const container = document.getElementById('bookmarkListContainer');
+            if (bookmarkedModules.length === 0) {
+                container.innerHTML = '<p class="text-gray-400 italic">Belum ada modul yang disimpan.</p>';
+                return;
+            }
+
+            container.innerHTML = bookmarkedModules.map(m => `
+                <div class="p-2.5 rounded-xl bg-gray-100 dark:bg-lampung-darkborder flex items-center justify-between cursor-pointer hover:bg-lampung-green hover:text-white transition" onclick="switchModule(${m}); toggleBookmarkDrawer();">
+                    <span class="font-bold">Modul ${m}</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            `).join('');
+        }
+
+        // Module Completion
+        function toggleModuleCompletion() {
+            const index = completedModules.indexOf(currentModule);
+            if (index > -1) {
+                completedModules.splice(index, 1);
+            } else {
+                completedModules.push(currentModule);
+            }
+            localStorage.setItem('ecoHist_completed', JSON.stringify(completedModules));
+            updateCompleteBtnUI();
+            updateOverallProgressBar();
+        }
+
+        function updateCompleteBtnUI() {
+            const isCompleted = completedModules.includes(currentModule);
+            const icon = document.getElementById('completeIcon');
+            const text = document.getElementById('completeText');
+            if (isCompleted) {
+                icon.className = 'fa-solid fa-circle-check text-lampung-green';
+                text.innerText = 'Selesai';
+            } else {
+                icon.className = 'fa-regular fa-circle-check';
+                text.innerText = 'Selesai Dibaca';
+            }
+        }
+
+        function updateOverallProgressBar() {
+            const percent = Math.round((completedModules.length / 9) * 100);
+            document.getElementById('overallProgressBar').style.width = percent + '%';
+            document.getElementById('overallProgressPercent').innerText = percent + '%';
+        }
+
+        // Accordion Toggle
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById(id + 'Icon');
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        // Check Module 1 Practice Quiz
+        function checkM1Quiz() {
+            const correctOption = document.getElementById('m1correct');
+            const feedback = document.getElementById('m1QuizFeedback');
+            feedback.classList.remove('hidden');
+            if (correctOption.checked) {
+                feedback.className = 'text-xs font-bold mt-2 text-lampung-green dark:text-lampung-green-light';
+                feedback.innerText = 'Jawaban Tepat! Sejarah lokal terikat erat dengan ekosistem dan ruang hidup setempat.';
+            } else {
+                feedback.className = 'text-xs font-bold mt-2 text-red-600';
+                feedback.innerText = 'Jawaban belum tepat. Coba pilih opsi B.';
+            }
+        }
+
+        // Module Search Filter
+        function setupSearch() {
+            document.getElementById('materiSearchInput').addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                document.querySelectorAll('.mod-tab-btn').forEach((btn, idx) => {
+                    const text = btn.innerText.toLowerCase();
+                    btn.style.display = text.includes(term) ? 'flex' : 'none';
+                });
+            });
+        }
+
+        // Quiz Engine Functions
+        function renderQuizQuestion() {
+            const q = quizData[currentQuizIndex];
+            document.getElementById('quizQuestionTracker').innerText = `Pertanyaan ${currentQuizIndex + 1} dari ${quizData.length}`;
+            document.getElementById('quizQuestionText').innerText = q.q;
+
+            const optionsContainer = document.getElementById('quizOptionsContainer');
+            optionsContainer.innerHTML = q.options.map((opt, idx) => `
+                <button onclick="selectQuizOption(${idx})" class="w-full text-left p-3.5 rounded-xl border ${userQuizAnswers[currentQuizIndex] === idx ? 'border-lampung-green bg-lampung-green/10 dark:bg-lampung-green/20' : 'border-gray-200 dark:border-lampung-darkborder bg-gray-50 dark:bg-lampung-darkborder/30'} hover:border-lampung-green transition text-xs sm:text-sm font-medium text-gray-800 dark:text-gray-200">
+                    ${opt}
+                </button>
+            `).join('');
+
+            // Prev Button Visibility
+            document.getElementById('prevQuizBtn').classList.toggle('hidden', currentQuizIndex === 0);
+            document.getElementById('nextQuizBtn').innerText = currentQuizIndex === quizData.length - 1 ? 'Selesai Kuis' : 'Selanjutnya';
+        }
+
+        function selectQuizOption(optIndex) {
+            userQuizAnswers[currentQuizIndex] = optIndex;
+            renderQuizQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentQuizIndex < quizData.length - 1) {
+                currentQuizIndex++;
+                renderQuizQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuizIndex > 0) {
+                currentQuizIndex--;
+                renderQuizQuestion();
+            }
+        }
+
+        function finishQuiz() {
+            let correctCount = 0;
+            quizData.forEach((q, idx) => {
+                if (userQuizAnswers[idx] === q.answer) correctCount++;
+            });
+
+            quizScore = Math.round((correctCount / quizData.length) * 100);
+
+            document.getElementById('quizContainer').classList.add('hidden');
+            document.getElementById('quizResultPanel').classList.remove('hidden');
+            document.getElementById('quizFinalScoreText').innerText = `Skor Anda: ${quizScore} / 100 (${correctCount} benar dari ${quizData.length} soal)`;
+
+            const feedback = document.getElementById('quizFeedbackMessage');
+            const certContainer = document.getElementById('certificateContainer');
+
+            if (quizScore >= 80) {
+                feedback.innerText = 'Luas biasa! Kamu memiliki pemahaman mendalam tentang Sejarah Lokal Lampung & Ecopedagogy.';
+                certContainer.classList.remove('hidden');
+            } else {
+                feedback.innerText = 'Nilaimu belum mencapai batas kelulusan sertifikat (minimal 80). Silakan ulas kembali modul dan coba lagi!';
+                certContainer.classList.add('hidden');
+            }
+        }
+
+        function resetQuiz() {
+            currentQuizIndex = 0;
+            quizScore = 0;
+            userQuizAnswers = {};
+            document.getElementById('quizResultPanel').classList.add('hidden');
+            document.getElementById('quizContainer').classList.remove('hidden');
+            renderQuizQuestion();
+        }
+
+        // Reflection Journal LocalStorage Sync
+        function saveReflectionNotes() {
+            const p1 = document.getElementById('refleksiPrompt1').value;
+            const p2 = document.getElementById('refleksiPrompt2').value;
+            const p3 = document.getElementById('refleksiPrompt3').value;
+
+            const reflections = { p1, p2, p3, timestamp: new Date().toISOString() };
+            localStorage.setItem('ecoHist_reflections', JSON.stringify(reflections));
+
+            const status = document.getElementById('reflectionSaveStatus');
+            status.classList.remove('hidden');
+            setTimeout(() => status.classList.add('hidden'), 3000);
+        }
+
+        function loadReflectionNotes() {
+            const saved = JSON.parse(localStorage.getItem('ecoHist_reflections'));
+            if (saved) {
+                if (saved.p1) document.getElementById('refleksiPrompt1').value = saved.p1;
+                if (saved.p2) document.getElementById('refleksiPrompt2').value = saved.p2;
+                if (saved.p3) document.getElementById('refleksiPrompt3').value = saved.p3;
+            }
+        }
+
+        // Map Interactive Detail Viewer
+        function showMapDetail(title, history, ecoValue, region) {
+            document.getElementById('mapTitle').innerText = title;
+            document.getElementById('mapHistory').innerText = history;
+            document.getElementById('mapEcoValue').innerText = ecoValue;
+        }
+
+        // Case Study Modal
+        function openCaseStudyModal() {
+            document.getElementById('caseStudyModal').classList.remove('hidden');
+        }
+
+        function closeCaseStudyModal() {
+            document.getElementById('caseStudyModal').classList.add('hidden');
+        }
+
+        // Certificate Modal
+        function openCertificateModal() {
+            document.getElementById('certificateModal').classList.remove('hidden');
+        }
+
+        function closeCertificateModal() {
+            document.getElementById('certificateModal').classList.add('hidden');
+        }
+
+        // Filter References
+        function filterRef(category) {
+            document.querySelectorAll('.ref-filter-btn').forEach(btn => {
+                btn.className = 'ref-filter-btn px-4 py-1.5 rounded-full text-xs font-bold bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300';
+            });
+            event.target.className = 'ref-filter-btn active px-4 py-1.5 rounded-full text-xs font-bold bg-lampung-green text-white';
+
+            document.querySelectorAll('.ref-card').forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
